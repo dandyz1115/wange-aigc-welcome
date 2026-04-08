@@ -365,7 +365,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 300;
             justify-content: center;
             align-items: center;
@@ -379,31 +379,250 @@
             background: #fff;
             border-radius: 20px;
             padding: 40px;
-            width: 400px;
+            width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .payment-header {
             text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
         
-        .payment-panel h2 {
-            margin-bottom: 30px;
+        .payment-header h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
         }
         
-        .qr-placeholder {
+        .order-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .order-row:last-child {
+            margin-bottom: 0;
+            padding-top: 8px;
+            border-top: 1px dashed #ddd;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ff4d4f;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .payment-method {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover, .payment-method.active {
+            border-color: #0052D9;
+            background: #f0f7ff;
+        }
+        
+        .payment-method-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        .payment-method-name {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .qr-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .qr-code {
             width: 200px;
             height: 200px;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
             border-radius: 12px;
-            margin: 0 auto 30px;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .payment-tips {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+        .qr-code::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 8px;
+            transform: translate(-50%, -50%);
         }
+        
+        .qr-code::after {
+            content: 'W';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0052D9;
+        }
+        
+        .qr-tips {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        
+        .countdown {
+            color: #ff4d4f;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .payment-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .payment-footer p {
+            color: #999;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .cancel-btn {
+            padding: 10px 30px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 8px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cancel-btn:hover {
+            background: #e8e8e8;
+        }
+        
+        /* 支付成功页面 */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 400;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .success-modal.show {
+            display: flex;
+        }
+        
+        .success-panel {
+            background: #fff;
+            border-radius: 20px;
+            padding: 50px;
+            width: 450px;
+            text-align: center;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 3rem;
+            color: #fff;
+            animation: scaleIn 0.5s ease;
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .success-panel h2 {
+            color: #52c41a;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .success-panel p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .download-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .download-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .download-item:last-child {
+
         
         /* 页脚 */
         footer {
@@ -620,10 +839,58 @@
     <!-- 支付弹窗 -->
     <div class="payment-modal" id="paymentModal">
         <div class="payment-panel">
-            <h2>💳 扫码支付</h2>
-            <div class="qr-placeholder">📱</div>
-            <p class="payment-tips">请使用微信或支付宝扫码支付<br>支付完成后自动跳转下载</p>
-            <p style="color: #999; font-size: 0.85rem;">（演示模式：点击任意处关闭）</p>
+            <div class="payment-header">
+                <h2>💳 订单支付</h2>
+                <p style="color: #999; font-size: 0.85rem;">订单号：<span id="orderId">-</span></p>
+            </div>
+            
+            <div class="order-info">
+                <div class="order-row">
+                    <span>商品数量</span>
+                    <span id="orderCount">0 件</span>
+                </div>
+                <div class="order-row">
+                    <span>应付金额</span>
+                    <span id="orderAmount">¥0</span>
+                </div>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-method active" onclick="selectPayment('wechat')">
+                    <div class="payment-method-icon">💚</div>
+                    <div class="payment-method-name">微信支付</div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('alipay')">
+                    <div class="payment-method-icon">💙</div>
+                    <div class="payment-method-name">支付宝</div>
+                </div>
+            </div>
+            
+            <div class="qr-section">
+                <div class="qr-code" id="qrCode"></div>
+                <p class="qr-tips">请使用微信扫一扫完成支付</p>
+                <p class="countdown">支付剩余时间：<span id="countdown">05:00</span></p>
+            </div>
+            
+            <div class="payment-footer">
+                <p>支付完成后页面将自动跳转</p>
+                <button class="cancel-btn" onclick="closePayment()">取消支付</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 支付成功弹窗 -->
+    <div class="success-modal" id="successModal">
+        <div class="success-panel">
+            <div class="success-icon">✓</div>
+            <h2>支付成功！</h2>
+            <p>感谢您的购买，资源已准备好下载</p>
+            
+            <div class="download-section" id="downloadSection">
+                <!-- 动态生成下载列表 -->
+            </div>
+            
+            <button class="checkout-btn" onclick="closeSuccess()">完成</button>
         </div>
     </div>
     
@@ -634,9 +901,20 @@
     
     <script>
         let cart = [];
+        let currentPayment = 'wechat';
+        let countdownTimer = null;
+        let orderNumber = '';
+        
+        // 生成订单号
+        function generateOrderId() {
+            const date = new Date();
+            const timestamp = date.getTime().toString().slice(-8);
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `WG${timestamp}${random}`;
+        }
         
         function addToCart(name, price, icon) {
-            cart.push({ name, price, icon });
+            cart.push({ name, price, icon, id: Date.now() });
             updateCart();
             
             // 按钮动画
@@ -688,20 +966,131 @@
                 alert('购物车是空的');
                 return;
             }
+            
+            // 生成订单信息
+            orderNumber = generateOrderId();
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            
+            document.getElementById('orderId').textContent = orderNumber;
+            document.getElementById('orderCount').textContent = `${cart.length} 件`;
+            document.getElementById('orderAmount').textContent = `¥${total.toFixed(1)}`;
+            
+            // 显示支付弹窗
             document.getElementById('paymentModal').classList.add('show');
+            
+            // 开始倒计时
+            startCountdown();
+            
+            // 模拟支付检测（5秒后自动成功）
+            setTimeout(() => {
+                if (document.getElementById('paymentModal').classList.contains('show')) {
+                    paymentSuccess();
+                }
+            }, 5000);
+        }
+        
+        function selectPayment(method) {
+            currentPayment = method;
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            const qrTips = document.querySelector('.qr-tips');
+            if (method === 'wechat') {
+                qrTips.textContent = '请使用微信扫一扫完成支付';
+            } else {
+                qrTips.textContent = '请使用支付宝扫一扫完成支付';
+            }
+        }
+        
+        function startCountdown() {
+            let minutes = 5;
+            let seconds = 0;
+            
+            if (countdownTimer) clearInterval(countdownTimer);
+            
+            countdownTimer = setInterval(() => {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(countdownTimer);
+                        closePayment();
+                        alert('支付超时，请重新下单');
+                        return;
+                    }
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+                
+                document.getElementById('countdown').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        function closePayment() {
+            document.getElementById('paymentModal').classList.remove('show');
+            if (countdownTimer) clearInterval(countdownTimer);
+        }
+        
+        function paymentSuccess() {
+            closePayment();
+            
+            // 生成下载列表
+            const downloadSection = document.getElementById('downloadSection');
+            let html = '<h4 style="margin-bottom:15px;text-align:left;">已购资源：</h4>';
+            
+            cart.forEach(item => {
+                html += `
+                    <div class="download-item">
+                        <span style="font-size:1.5rem;">${item.icon}</span>
+                        <div style="flex:1;text-align:left;">
+                            <div style="font-weight:500;">${item.name}</div>
+                            <div style="font-size:0.8rem;color:#999;">PDF 文件</div>
+                        </div>
+                        <button onclick="downloadFile('${item.name}')" style="padding:8px 16px;background:#0052D9;color:#fff;border:none;border-radius:6px;cursor:pointer;">下载</button>
+                    </div>
+                `;
+            });
+            
+            downloadSection.innerHTML = html;
+            document.getElementById('successModal').classList.add('show');
+            
+            // 清空购物车
+            cart = [];
+            updateCart();
+        }
+        
+        function closeSuccess() {
+            document.getElementById('successModal').classList.remove('show');
+            toggleCart();
+        }
+        
+        function downloadFile(filename) {
+            // 模拟下载
+            alert(`正在下载：${filename}.pdf\n\n（演示模式：实际项目中这里会触发真实下载）`);
         }
         
         function downloadFree() {
-            alert('免费资源下载链接已发送至您的邮箱！');
+            const email = prompt('请输入您的邮箱，我们将把下载链接发送给您：');
+            if (email && email.includes('@')) {
+                alert(`✅ 下载链接已发送至 ${email}\n\n请查收邮件并点击链接下载资源。`);
+            } else if (email) {
+                alert('请输入有效的邮箱地址');
+            }
         }
         
-        // 点击支付弹窗关闭
-        document.getElementById('paymentModal').addEventListener('click', function() {
-            this.classList.remove('show');
-            alert('支付成功！下载链接已发送至您的邮箱。');
-            cart = [];
-            updateCart();
-            toggleCart();
+        // 点击支付弹窗外部关闭
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePayment();
+            }
+        });
+        
+        // 点击成功弹窗外部关闭
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSuccess();
+            }
         });
     </script>
 </body>
