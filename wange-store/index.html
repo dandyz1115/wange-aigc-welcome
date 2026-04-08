@@ -678,10 +678,11 @@
             background: #fff;
             border-radius: 20px;
             padding: 40px;
-            width: 400px;
+            width: 420px;
             max-width: 90%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: slideUp 0.3s ease;
+            position: relative;
         }
         
         .auth-header {
@@ -809,6 +810,202 @@
         .logout-btn:hover {
             background: #e8e8e8;
         }
+
+        /* 注册增强样式 */
+        .form-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0052D9;
+        }
+
+        .form-group input.error {
+            border-color: #ff4d4f;
+        }
+
+        .form-group input.success {
+            border-color: #52c41a;
+        }
+
+        .form-group .input-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .form-group .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        .error-message {
+            color: #ff4d4f;
+            font-size: 0.8rem;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* 密码强度指示器 */
+        .password-strength {
+            display: flex;
+            gap: 4px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .strength-bar {
+            flex: 1;
+            height: 4px;
+            background: #e8e8e8;
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .strength-bar.weak {
+            background: #ff4d4f;
+        }
+
+        .strength-bar.medium {
+            background: #faad14;
+        }
+
+        .strength-bar.strong {
+            background: #52c41a;
+        }
+
+        .strength-text {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .strength-text.weak {
+            color: #ff4d4f;
+        }
+
+        .strength-text.medium {
+            color: #faad14;
+        }
+
+        .strength-text.strong {
+            color: #52c41a;
+        }
+
+        /* 用户协议 */
+        .agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .agreement input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .agreement a {
+            color: #0052D9;
+            text-decoration: none;
+        }
+
+        .agreement a:hover {
+            text-decoration: underline;
+        }
+
+        /* Toast 提示 */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 9999999;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: #52c41a;
+        }
+
+        .toast.error {
+            background: #ff4d4f;
+        }
+
+        /* 发送验证码按钮 */
+        .input-with-btn {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-with-btn input {
+            flex: 1;
+        }
+
+        .send-code-btn {
+            padding: 14px 16px;
+            background: #f5f5f5;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .send-code-btn:hover:not(:disabled) {
+            background: #e8e8e8;
+        }
+
+        .send-code-btn:disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        /* 必填标记 */
+        .required::after {
+            content: ' *';
+            color: #ff4d4f;
+        }
     </style>
 </head>
 <body>
@@ -822,6 +1019,7 @@
                 🛒 购物车
                 <span class="cart-count" id="cartCount">0</span>
             </button>
+            <a href="admin.html" style="padding:10px 20px;background:#666;color:#fff;border-radius:8px;text-decoration:none;font-size:0.9rem;">⚙️ 管理</a>
         </div>
     </nav>
     
@@ -832,141 +1030,11 @@
     
     <section class="products">
         <h2 class="section-title">🔥 热门资源</h2>
-        <div class="products-grid">
-            <!-- 产品 1 -->
-            <div class="product-card">
-                <div class="product-cover">
-                    <span class="product-badge hot">热卖</span>
-                    <span class="icon">📖</span>
-                </div>
-                <div class="product-info">
-                    <h3>2026 AI 行业发展报告</h3>
-                    <p>全面解析全球 AI 产业趋势，包含 100+ 页深度分析</p>
-                    <div class="product-meta">
-                        <span>📄 PDF</span>
-                        <span>📦 128页</span>
-                        <span>⬇️ 2.3k</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="current-price">¥29.9</span>
-                        <span class="original-price">¥99</span>
-                    </div>
-                    <button class="buy-btn" onclick="addToCart('AI发展报告', 29.9, '📖')">加入购物车</button>
-                </div>
-            </div>
-            
-            <!-- 产品 2 -->
-            <div class="product-card">
-                <div class="product-cover">
-                    <span class="product-badge">精选</span>
-                    <span class="icon">🎨</span>
-                </div>
-                <div class="product-info">
-                    <h3>Midjourney 提示词大全</h3>
-                    <p>1000+ 精选提示词模板，涵盖各类风格与场景</p>
-                    <div class="product-meta">
-                        <span>📄 PDF</span>
-                        <span>📦 256页</span>
-                        <span>⬇️ 5.6k</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="current-price">¥19.9</span>
-                        <span class="original-price">¥59</span>
-                    </div>
-                    <button class="buy-btn" onclick="addToCart('MJ提示词大全', 19.9, '🎨')">加入购物车</button>
-                </div>
-            </div>
-            
-            <!-- 产品 3 -->
-            <div class="product-card">
-                <div class="product-cover">
-                    <span class="product-badge">新品</span>
-                    <span class="icon">🤖</span>
-                </div>
-                <div class="product-info">
-                    <h3>ChatGPT 高级应用指南</h3>
-                    <p>从入门到精通，掌握提示工程与自动化工作流</p>
-                    <div class="product-meta">
-                        <span>📄 PDF</span>
-                        <span>📦 180页</span>
-                        <span>⬇️ 1.8k</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="current-price">¥39.9</span>
-                        <span class="original-price">¥129</span>
-                    </div>
-                    <button class="buy-btn" onclick="addToCart('ChatGPT指南', 39.9, '🤖')">加入购物车</button>
-                </div>
-            </div>
-            
-            <!-- 产品 4 -->
-            <div class="product-card">
-                <div class="product-cover">
-                    <span class="product-badge">套装</span>
-                    <span class="icon">📦</span>
-                </div>
-                <div class="product-info">
-                    <h3>AI 视频制作工具包</h3>
-                    <p>包含脚本模板、配音指南、剪辑技巧与案例分析</p>
-                    <div class="product-meta">
-                        <span>📄 PDF</span>
-                        <span>📦 320页</span>
-                        <span>⬇️ 3.2k</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="current-price">¥49.9</span>
-                        <span class="original-price">¥199</span>
-                    </div>
-                    <button class="buy-btn" onclick="addToCart('AI视频工具包', 49.9, '📦')">加入购物车</button>
-                </div>
-            </div>
-            
-            <!-- 产品 5 -->
-            <div class="product-card">
-                <div class="product-cover">
-                    <span class="product-badge hot">热卖</span>
-                    <span class="icon">💼</span>
-                </div>
-                <div class="product-info">
-                    <h3>AI 产品经理实战手册</h3>
-                    <p>AI 产品设计方法论、案例分析与落地指南</p>
-                    <div class="product-meta">
-                        <span>📄 PDF</span>
-                        <span>📦 200页</span>
-                        <span>⬇️ 4.1k</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="current-price">¥59.9</span>
-                        <span class="original-price">¥159</span>
-                    </div>
-                    <button class="buy-btn" onclick="addToCart('AI产品手册', 59.9, '💼')">加入购物车</button>
-                </div>
-            </div>
-            
-            <!-- 产品 6 -->
-            <div class="product-card">
-                <div class="product-cover">
-                    <span class="product-badge">免费</span>
-                    <span class="icon">🎁</span>
-                </div>
-                <div class="product-info">
-                    <h3>AI 工具清单 2026 版</h3>
-                    <p>500+ AI 工具分类整理，附使用场景与优缺点分析</p>
-                    <div class="product-meta">
-                        <span>📄 PDF</span>
-                        <span>📦 88页</span>
-                        <span>⬇️ 12.5k</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="current-price">免费</span>
-                        <span class="original-price">¥29</span>
-                    </div>
-                    <button class="buy-btn" onclick="downloadFree()">立即下载</button>
-                </div>
-            </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- 产品列表由 JavaScript 动态渲染 -->
         </div>
     </section>
-    
+
     <!-- 购物车弹窗 -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-panel">
@@ -1054,38 +1122,88 @@
     <!-- 登录/注册弹窗 -->
     <div class="auth-modal" id="authModal" style="position:fixed;top:0;left:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999999;">
         <div class="auth-panel" style="margin:auto;">
+            <button onclick="closeAuth()" style="position:absolute;top:15px;right:15px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#999;">✕</button>
             <div class="auth-header">
                 <h2 id="authTitle">欢迎登录</h2>
-                <p style="color:#999;font-size:0.85rem;">登录后享受更多权益</p>
+                <p style="color:#999;font-size:0.85rem;" id="authSubtitle">登录后享受更多权益</p>
             </div>
-            
+
             <div class="auth-tabs">
                 <button class="auth-tab active" onclick="switchAuth('login')">登录</button>
                 <button class="auth-tab" onclick="switchAuth('register')">注册</button>
             </div>
-            
+
             <!-- 登录表单 -->
             <form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
-                <input type="text" placeholder="用户名或邮箱" id="loginUsername" required>
-                <input type="password" placeholder="密码" id="loginPassword" required>
-                <button type="submit">登录</button>
+                <div class="form-group">
+                    <input type="text" placeholder="用户名 / 邮箱 / 手机号" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="密码" id="loginPassword" required>
+                    <span class="toggle-password" onclick="togglePassword('loginPassword')">👁️</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:0.85rem;">
+                    <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+                        <input type="checkbox" id="rememberMe"> 记住我
+                    </label>
+                    <a href="#" onclick="showForgotPassword()" style="color:#0052D9;text-decoration:none;">忘记密码？</a>
+                </div>
+                <button type="submit">登 录</button>
                 <div class="auth-footer">
                     还没有账号？<a href="#" onclick="switchAuth('register')" style="color:#0052D9;">立即注册</a>
                 </div>
             </form>
-            
+
             <!-- 注册表单 -->
             <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
-                <input type="text" placeholder="设置用户名" id="regUsername" required>
-                <input type="email" placeholder="邮箱地址" id="regEmail" required>
-                <input type="password" placeholder="设置密码（至少6位）" id="regPassword" required style="margin-bottom:0;">
-                <button type="submit">注册</button>
+                <div class="form-group">
+                    <input type="text" placeholder="用户名（4-16位字母数字）" id="regUsername" required oninput="validateUsername(this)">
+                </div>
+                <p class="error-message" id="usernameError"></p>
+
+                <div class="form-group">
+                    <input type="tel" placeholder="手机号（选填）" id="regPhone" oninput="validatePhone(this)">
+                </div>
+                <p class="error-message" id="phoneError"></p>
+
+                <div class="form-group">
+                    <input type="email" placeholder="邮箱地址" id="regEmail" required oninput="validateEmail(this)">
+                </div>
+                <p class="error-message" id="emailError"></p>
+
+                <div class="form-group" style="margin-bottom:5px;">
+                    <input type="password" placeholder="设置密码（6-20位）" id="regPassword" required oninput="checkPasswordStrength(this.value)">
+                    <span class="toggle-password" onclick="togglePassword('regPassword')">👁️</span>
+                </div>
+                <div class="password-strength" id="passwordStrength">
+                    <div class="strength-bar" id="bar1"></div>
+                    <div class="strength-bar" id="bar2"></div>
+                    <div class="strength-bar" id="bar3"></div>
+                    <div class="strength-bar" id="bar4"></div>
+                </div>
+                <p class="strength-text" id="strengthText"></p>
+
+                <div class="form-group" style="margin-bottom:5px;">
+                    <input type="password" placeholder="确认密码" id="regPasswordConfirm" required oninput="validatePasswordConfirm(this)">
+                    <span class="toggle-password" onclick="togglePassword('regPasswordConfirm')">👁️</span>
+                </div>
+                <p class="error-message" id="passwordConfirmError"></p>
+
+                <div class="agreement">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <span>我已阅读并同意 <a href="#" onclick="showTerms('user')">《用户协议》</a> 和 <a href="#" onclick="showTerms('privacy')">《隐私政策》</a></span>
+                </div>
+
+                <button type="submit" id="registerBtn">注 册</button>
                 <div class="auth-footer">
                     已有账号？<a href="#" onclick="switchAuth('login')" style="color:#0052D9;">立即登录</a>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Toast 提示 -->
+    <div class="toast" id="toast"></div>
     
     <footer>
         <p>© 2026 WanGe AIGC. All rights reserved.</p>
@@ -1098,7 +1216,59 @@
         let countdownTimer = null;
         let orderNumber = '';
         let currentUser = null;
-        
+
+        // 默认产品数据
+        const defaultProducts = [
+            { id: 1, name: 'AI 绘画入门指南', desc: '从零开始学习 AI 绘画，涵盖 Midjourney、DALL-E 等主流工具', price: 29.9, originalPrice: 99, badge: '热卖', icon: '🎨', sales: 1234, status: 'active' },
+            { id: 2, name: 'ChatGPT 高级玩法', desc: '提示词技巧、API 调用、自动化工作流完全指南', price: 39.9, originalPrice: 129, badge: '推荐', icon: '🤖', sales: 2341, status: 'active' },
+            { id: 3, name: 'AI 写作变现课', desc: '自媒体、文案、小说创作与变现策略', price: 59.9, originalPrice: 199, badge: '新品', icon: '✍️', sales: 876, status: 'active' },
+            { id: 4, name: 'AI 视频制作工具包', desc: '包含脚本模板、配音指南、剪辑技巧与案例分析', price: 49.9, originalPrice: 199, badge: '', icon: '📦', sales: 3200, status: 'active' },
+            { id: 5, name: 'AI 产品经理实战手册', desc: 'AI 产品设计方法论、案例分析与落地指南', price: 59.9, originalPrice: 159, badge: '热卖', icon: '💼', sales: 4100, status: 'active' },
+            { id: 6, name: 'AI 工具清单 2026 版', desc: '500+ AI 工具分类整理，附使用场景与优缺点分析', price: 0, originalPrice: 29, badge: '免费', icon: '🎁', sales: 12500, status: 'active' }
+        ];
+
+        // 渲染产品列表
+        function renderProducts() {
+            const products = JSON.parse(localStorage.getItem('wangeProducts')) || defaultProducts;
+            const grid = document.getElementById('productsGrid');
+
+            grid.innerHTML = products.filter(p => p.status === 'active').map(p => {
+                const icon = p.icon || '📦';
+                const escapedName = p.name.replace(/'/g, "\\'");
+                return `
+                <div class="product-card">
+                    <div class="product-cover">
+                        ${p.badge ? '<span class="product-badge ' + (p.badge === '热卖' ? 'hot' : '') + '">' + p.badge + '</span>' : ''}
+                        <span class="icon">${icon}</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.desc || ''}</p>
+                        <div class="product-meta">
+                            <span>📄 PDF</span>
+                            <span>⬇️ ${(p.sales / 1000).toFixed(1)}k</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">${p.price === 0 ? '免费' : '¥' + p.price}</span>
+                            ${p.originalPrice ? '<span class="original-price">¥' + p.originalPrice + '</span>' : ''}
+                        </div>
+                        ${p.price === 0
+                            ? '<button class="buy-btn" onclick="downloadFree()">立即下载</button>'
+                            : '<button class="buy-btn" data-name="' + escapedName + '" data-price="' + p.price + '" data-icon="' + icon + '" onclick="addToCartFromBtn(this)">加入购物车</button>'
+                        }
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        // 从按钮添加到购物车
+        function addToCartFromBtn(btn) {
+            const name = btn.dataset.name;
+            const price = parseFloat(btn.dataset.price);
+            const icon = btn.dataset.icon;
+            addToCart(name, price, icon);
+        }
+
         // 页面加载时检查登录状态
         window.onload = function() {
             const savedUser = localStorage.getItem('wangeUser');
@@ -1106,6 +1276,8 @@
                 currentUser = JSON.parse(savedUser);
                 updateUserUI();
             }
+            // 渲染产品列表
+            renderProducts();
         }
         
         // 更新用户界面
@@ -1130,87 +1302,325 @@
         function showAuth(type) {
             document.getElementById('authModal').classList.add('show');
             switchAuth(type);
+            // 重置表单
+            document.getElementById('loginForm').reset();
+            document.getElementById('registerForm').reset();
+            clearAllErrors();
         }
-        
+
+        // 关闭弹窗
+        function closeAuth() {
+            document.getElementById('authModal').classList.remove('show');
+        }
+
+        // 清除所有错误提示
+        function clearAllErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.textContent = '';
+                el.classList.remove('show');
+            });
+            document.querySelectorAll('.form-group input').forEach(el => {
+                el.classList.remove('error', 'success');
+            });
+            resetPasswordStrength();
+        }
+
         // 切换登录/注册
         function switchAuth(type) {
             const tabs = document.querySelectorAll('.auth-tab');
             const forms = document.querySelectorAll('.auth-form');
-            
+
             tabs.forEach((tab, index) => {
                 tab.classList.toggle('active', (type === 'login' && index === 0) || (type === 'register' && index === 1));
             });
-            
+
             forms.forEach((form, index) => {
                 form.classList.toggle('active', (type === 'login' && index === 0) || (type === 'register' && index === 1));
             });
-            
+
             document.getElementById('authTitle').textContent = type === 'login' ? '欢迎登录' : '加入我们';
+            document.getElementById('authSubtitle').textContent = type === 'login' ? '登录后享受更多权益' : '注册账号，开启 AI 之旅';
         }
-        
+
+        // Toast 提示
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 显示错误
+        function showError(fieldId, message) {
+            const errorEl = document.getElementById(fieldId + 'Error');
+            const inputEl = document.getElementById(fieldId);
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.add('show');
+            }
+            if (inputEl) {
+                inputEl.classList.add('error');
+                inputEl.classList.remove('success');
+            }
+        }
+
+        // 显示成功
+        function showSuccess(fieldId) {
+            const errorEl = document.getElementById(fieldId + 'Error');
+            const inputEl = document.getElementById(fieldId);
+            if (errorEl) {
+                errorEl.textContent = '';
+                errorEl.classList.remove('show');
+            }
+            if (inputEl) {
+                inputEl.classList.remove('error');
+                inputEl.classList.add('success');
+            }
+        }
+
+        // 切换密码可见性
+        function togglePassword(fieldId) {
+            const input = document.getElementById(fieldId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        // 验证用户名
+        function validateUsername(input) {
+            const value = input.value.trim();
+            if (!value) {
+                showError('username', '请输入用户名');
+                return false;
+            }
+            if (value.length < 4 || value.length > 16) {
+                showError('username', '用户名需要4-16个字符');
+                return false;
+            }
+            if (!/^[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(value)) {
+                showError('username', '用户名只能包含字母、数字、下划线或中文');
+                return false;
+            }
+            // 检查是否已存在
+            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
+            if (users.find(u => u.username === value)) {
+                showError('username', '该用户名已被注册');
+                return false;
+            }
+            showSuccess('username');
+            return true;
+        }
+
+        // 验证手机号
+        function validatePhone(input) {
+            const value = input.value.trim();
+            if (!value) {
+                showSuccess('phone'); // 手机号选填，为空时不报错
+                return true;
+            }
+            if (!/^1[3-9]\d{9}$/.test(value)) {
+                showError('phone', '请输入正确的手机号');
+                return false;
+            }
+            // 检查是否已存在
+            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
+            if (users.find(u => u.phone === value)) {
+                showError('phone', '该手机号已被注册');
+                return false;
+            }
+            showSuccess('phone');
+            return true;
+        }
+
+        // 验证邮箱
+        function validateEmail(input) {
+            const value = input.value.trim();
+            if (!value) {
+                showError('email', '请输入邮箱地址');
+                return false;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                showError('email', '请输入正确的邮箱格式');
+                return false;
+            }
+            // 检查是否已存在
+            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
+            if (users.find(u => u.email === value)) {
+                showError('email', '该邮箱已被注册');
+                return false;
+            }
+            showSuccess('email');
+            return true;
+        }
+
+        // 检查密码强度
+        function checkPasswordStrength(password) {
+            const bars = [
+                document.getElementById('bar1'),
+                document.getElementById('bar2'),
+                document.getElementById('bar3'),
+                document.getElementById('bar4')
+            ];
+            const textEl = document.getElementById('strengthText');
+
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.length >= 10) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
+
+            // 重置
+            bars.forEach(bar => bar.className = 'strength-bar');
+            textEl.className = 'strength-text';
+
+            if (password.length === 0) {
+                textEl.textContent = '';
+                return false;
+            }
+
+            if (strength <= 2) {
+                for (let i = 0; i < strength; i++) bars[i].classList.add('weak');
+                textEl.textContent = '密码强度：弱';
+                textEl.classList.add('weak');
+            } else if (strength <= 3) {
+                for (let i = 0; i < strength; i++) bars[i].classList.add('medium');
+                textEl.textContent = '密码强度：中';
+                textEl.classList.add('medium');
+            } else {
+                for (let i = 0; i < 4; i++) bars[i].classList.add('strong');
+                textEl.textContent = '密码强度：强';
+                textEl.classList.add('strong');
+            }
+
+            return password.length >= 6;
+        }
+
+        // 重置密码强度
+        function resetPasswordStrength() {
+            document.querySelectorAll('.strength-bar').forEach(bar => bar.className = 'strength-bar');
+            document.getElementById('strengthText').textContent = '';
+            document.getElementById('strengthText').className = 'strength-text';
+        }
+
+        // 验证确认密码
+        function validatePasswordConfirm(input) {
+            const password = document.getElementById('regPassword').value;
+            const confirm = input.value;
+            if (!confirm) {
+                showError('passwordConfirm', '请确认密码');
+                return false;
+            }
+            if (password !== confirm) {
+                showError('passwordConfirm', '两次密码输入不一致');
+                return false;
+            }
+            showSuccess('passwordConfirm');
+            return true;
+        }
+
         // 处理登录
         function handleLogin(e) {
             e.preventDefault();
-            const username = document.getElementById('loginUsername').value;
+            const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
-            
+
+            if (!username || !password) {
+                showToast('请填写完整的登录信息', 'error');
+                return;
+            }
+
             // 从 localStorage 获取用户数据
             const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
-            const user = users.find(u => (u.username === username || u.email === username) && u.password === password);
-            
+            const user = users.find(u =>
+                (u.username === username || u.email === username || u.phone === username) &&
+                u.password === password
+            );
+
             if (user) {
-                currentUser = { username: user.username, email: user.email };
+                currentUser = { username: user.username, email: user.email, phone: user.phone };
                 localStorage.setItem('wangeUser', JSON.stringify(currentUser));
                 updateUserUI();
-                document.getElementById('authModal').classList.remove('show');
-                alert(`欢迎回来，${user.username}！`);
+                closeAuth();
+                showToast(`欢迎回来，${user.username}！`, 'success');
             } else {
-                alert('用户名或密码错误！\n演示账号：任意注册一个试试');
+                showToast('用户名或密码错误', 'error');
             }
         }
-        
+
         // 处理注册
         function handleRegister(e) {
             e.preventDefault();
-            const username = document.getElementById('regUsername').value;
-            const email = document.getElementById('regEmail').value;
+
+            const username = document.getElementById('regUsername').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
-            
-            if (password.length < 6) {
-                alert('密码至少需要6位！');
-                return;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+
+            // 验证所有字段
+            let valid = true;
+
+            if (!validateUsername(document.getElementById('regUsername'))) valid = false;
+            if (!validatePhone(document.getElementById('regPhone'))) valid = false;
+            if (!validateEmail(document.getElementById('regEmail'))) valid = false;
+            if (!checkPasswordStrength(password)) {
+                showToast('密码至少需要6位', 'error');
+                valid = false;
             }
-            
+            if (password !== passwordConfirm) {
+                showError('passwordConfirm', '两次密码输入不一致');
+                valid = false;
+            }
+            if (!agreeTerms) {
+                showToast('请阅读并同意用户协议', 'error');
+                valid = false;
+            }
+
+            if (!valid) return;
+
             // 保存用户到 localStorage
             const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
-            
-            if (users.find(u => u.username === username)) {
-                alert('用户名已被注册！');
-                return;
-            }
-            
-            if (users.find(u => u.email === email)) {
-                alert('邮箱已被注册！');
-                return;
-            }
-            
-            users.push({ username, email, password });
+            const newUser = {
+                username,
+                email,
+                phone,
+                password,
+                createdAt: new Date().toISOString()
+            };
+            users.push(newUser);
             localStorage.setItem('wangeUsers', JSON.stringify(users));
-            
+
             // 自动登录
-            currentUser = { username, email };
+            currentUser = { username, email, phone };
             localStorage.setItem('wangeUser', JSON.stringify(currentUser));
             updateUserUI();
-            document.getElementById('authModal').classList.remove('show');
-            alert(`注册成功！欢迎加入，${username}！`);
+            closeAuth();
+            showToast(`注册成功！欢迎加入，${username}！`, 'success');
         }
-        
+
         // 退出登录
         function logout() {
             currentUser = null;
             localStorage.removeItem('wangeUser');
             updateUserUI();
-            alert('已退出登录');
+            showToast('已退出登录', 'info');
+        }
+
+        // 忘记密码
+        function showForgotPassword() {
+            showToast('请联系客服重置密码', 'info');
+        }
+
+        // 显示用户协议
+        function showTerms(type) {
+            if (type === 'user') {
+                alert('《用户协议》\n\n1. 用户应遵守国家法律法规\n2. 用户不得利用本平台从事违法活动\n3. 用户应保护好自己的账号密码\n4. 本平台保留最终解释权');
+            } else {
+                alert('《隐私政策》\n\n1. 我们收集的信息仅用于提供服务\n2. 我们不会向第三方出售用户信息\n3. 用户有权要求删除个人数据\n4. 我们采用安全措施保护用户数据');
+            }
         }
         
         // 检查是否登录
@@ -1232,16 +1642,28 @@
         
         function addToCart(name, price, icon) {
             if (!checkLogin()) return;
-            
+
             cart.push({ name, price, icon, id: Date.now() });
             updateCart();
-            
+        }
+
+        // 从按钮添加到购物车（带按钮动画）
+        function addToCartFromBtn(btn) {
+            const name = btn.dataset.name;
+            const price = parseFloat(btn.dataset.price);
+            const icon = btn.dataset.icon;
+
+            if (!checkLogin()) return;
+
+            cart.push({ name, price, icon, id: Date.now() });
+            updateCart();
+
             // 按钮动画
-            event.target.textContent = '✓ 已添加';
-            event.target.classList.add('added');
+            btn.textContent = '✓ 已添加';
+            btn.classList.add('added');
             setTimeout(() => {
-                event.target.textContent = '加入购物车';
-                event.target.classList.remove('added');
+                btn.textContent = '加入购物车';
+                btn.classList.remove('added');
             }, 1500);
         }
         
@@ -1355,11 +1777,26 @@
         
         function paymentSuccess() {
             closePayment();
-            
+
+            // 保存订单到 localStorage
+            const orders = JSON.parse(localStorage.getItem('wangeOrders') || '[]');
+            const newOrder = {
+                id: orderNumber,
+                user: currentUser.username,
+                email: currentUser.email,
+                items: cart.map(item => ({ name: item.name, price: item.price })),
+                total: cart.reduce((sum, item) => sum + item.price, 0),
+                payment: currentPayment,
+                status: 'paid',
+                time: new Date().toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).replace(/\//g, '-')
+            };
+            orders.unshift(newOrder);
+            localStorage.setItem('wangeOrders', JSON.stringify(orders));
+
             // 生成下载列表
             const downloadSection = document.getElementById('downloadSection');
             let html = '<h4 style="margin-bottom:15px;text-align:left;">已购资源：</h4>';
-            
+
             cart.forEach(item => {
                 html += `
                     <div class="download-item">
@@ -1372,7 +1809,7 @@
                     </div>
                 `;
             });
-            
+
             downloadSection.innerHTML = html;
             document.getElementById('successModal').classList.add('show');
             
