@@ -3,1933 +3,943 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 资源下载站 - WanGe</title>
+    <title>WanGe AI 资源站</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #0052D9;
+            --primary-dark: #0045b8;
+            --danger: #ff4d4f;
+            --success: #52c41a;
+            --bg: #f5f7fa;
+            --card: #fff;
+            --text: #1a1a1a;
+            --text-secondary: #666;
+            --border: #e8e8e8;
+            --shadow: 0 4px 20px rgba(0, 82, 217, 0.08);
+            --shadow-lg: 0 8px 40px rgba(0, 82, 217, 0.15);
+            --radius: 16px;
+            --radius-sm: 8px;
         }
         
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f5f7fa;
-            color: #1a1a1a;
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
         }
         
-        /* 导航栏 */
+        /* 导航 */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 15px 60px;
+            top: 0; left: 0; right: 0;
+            padding: 16px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255,255,255,0.98);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 82, 217, 0.08);
+            box-shadow: var(--shadow);
             z-index: 100;
         }
         
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #0052D9;
-            letter-spacing: 0.05em;
-        }
+        .logo { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
         
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
         
-        .cart-btn {
-            position: relative;
+        /* 按钮基础样式 */
+        .btn {
             padding: 10px 20px;
-            background: #0052D9;
-            color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         
-        .cart-btn:hover {
-            background: #0045b8;
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
         }
+        
+        .btn-primary:hover { background: var(--primary-dark); }
+        
+        .btn-secondary {
+            background: #fff;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-secondary:hover { background: rgba(0,82,217,0.05); }
+        
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+        }
+        
+        .btn-ghost:hover { background: rgba(0,0,0,0.05); }
+        
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-danger:hover { background: #ff7875; }
+        
+        .btn-success { background: var(--success); color: #fff; }
+        .btn-success:hover { background: #73d13d; }
+        
+        .btn-lg { padding: 14px 32px; font-size: 1rem; }
+        
+        /* 购物车按钮 */
+        .cart-btn { position: relative; }
         
         .cart-count {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 22px;
-            height: 22px;
-            background: #ff4d4f;
+            top: -8px; right: -8px;
+            width: 20px; height: 20px;
+            background: var(--danger);
             color: #fff;
             border-radius: 50%;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        /* Hero 区域 */
+        /* Hero */
         .hero {
-            padding: 140px 60px 80px;
+            padding: 140px 40px 80px;
             text-align: center;
             background: linear-gradient(135deg, #f5f7fa 0%, #e8f0fe 100%);
         }
         
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 20px;
-            color: #1a1a1a;
+            margin-bottom: 16px;
         }
         
         .hero p {
             font-size: 1.1rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 32px;
         }
         
-        /* 产品网格 */
-        .products {
-            padding: 60px;
-            max-width: 1400px;
+        /* 产品区 */
+        .section {
+            padding: 60px 40px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
         .section-title {
             font-size: 1.8rem;
+            font-weight: 600;
             margin-bottom: 40px;
-            color: #1a1a1a;
+            text-align: center;
         }
         
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
         }
         
-        .product-card {
-            background: #fff;
-            border-radius: 16px;
+        /* 卡片 */
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 82, 217, 0.06);
-            transition: all 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 82, 217, 0.12);
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
         
-        .product-cover {
-            height: 200px;
-            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4ff 100%);
+        .card-cover {
+            height: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #e8f0fe 0%, #f5f7fa 100%);
             position: relative;
         }
         
-        .product-cover .icon {
-            font-size: 4rem;
-        }
-        
-        .product-badge {
+        .card-badge {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            padding: 6px 12px;
-            background: #0052D9;
+            top: 12px; left: 12px;
+            padding: 4px 12px;
+            background: var(--danger);
             color: #fff;
-            border-radius: 6px;
+            border-radius: 20px;
             font-size: 0.75rem;
+        }
+        
+        .card-body {
+            padding: 24px;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 8px;
         }
         
-        .product-badge.hot {
-            background: #ff4d4f;
-        }
-        
-        .product-info {
-            padding: 25px;
-        }
-        
-        .product-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #1a1a1a;
-        }
-        
-        .product-info p {
-            color: #666;
+        .card-desc {
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            margin-bottom: 15px;
-            line-height: 1.5;
+            margin-bottom: 16px;
         }
         
-        .product-meta {
+        .card-footer {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            color: #999;
         }
         
-        .product-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .product-price {
+        .price {
             display: flex;
             align-items: baseline;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
         }
         
-        .current-price {
-            font-size: 1.6rem;
+        .price-current {
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #ff4d4f;
+            color: var(--danger);
         }
         
-        .original-price {
-            font-size: 1rem;
+        .price-original {
+            font-size: 0.9rem;
             color: #999;
             text-decoration: line-through;
         }
         
-        .buy-btn {
-            width: 100%;
-            padding: 14px;
-            background: #0052D9;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .buy-btn:hover {
-            background: #0045b8;
-        }
-        
-        .buy-btn.added {
-            background: #52c41a;
-        }
-        
-        /* 购物车弹窗 */
-        .cart-modal {
+        /* 弹窗遮罩 */
+        .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 200;
-            justify-content: flex-end;
-        }
-        
-        .cart-modal.show {
-            display: flex;
-        }
-        
-        .cart-panel {
-            width: 400px;
-            background: #fff;
-            height: 100%;
-            padding: 30px;
-            overflow-y: auto;
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-        
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .cart-header h2 {
-            font-size: 1.3rem;
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-        }
-        
-        .cart-item {
-            display: flex;
-            gap: 15px;
-            padding: 20px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .cart-item-icon {
-            width: 60px;
-            height: 60px;
-            background: #e8f0fe;
-            border-radius: 8px;
-            display: flex;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            padding: 20px;
         }
         
-        .cart-item-info {
-            flex: 1;
-        }
-        
-        .cart-item-info h4 {
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-        }
-        
-        .cart-item-info .price {
-            color: #ff4d4f;
-            font-weight: 600;
-        }
-        
-        .cart-total {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #eee;
-        }
-        
-        .total-row {
+        .modal-overlay.show {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
         }
         
-        .total-row.final {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ff4d4f;
-        }
-        
-        .checkout-btn {
+        /* 弹窗 */
+        .modal {
+            background: #fff;
+            border-radius: var(--radius);
             width: 100%;
-            padding: 16px;
-            background: #ff4d4f;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-        
-        .checkout-btn:hover {
-            background: #ff7875;
-        }
-        
-        /* 支付弹窗 */
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .payment-modal.show {
-            display: flex;
-        }
-        
-        .payment-panel {
-            background: #fff;
-            border-radius: 20px;
-            padding: 40px;
-            width: 450px;
+            max-width: 420px;
             max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
+            overflow: auto;
+            animation: modalIn 0.3s ease;
         }
         
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
         
-        .payment-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .payment-header h2 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        
-        .order-info {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .order-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .order-row:last-child {
-            margin-bottom: 0;
-            padding-top: 8px;
-            border-top: 1px dashed #ddd;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #ff4d4f;
-        }
-        
-        .payment-methods {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .payment-method {
-            flex: 1;
-            padding: 15px;
-            border: 2px solid #e8e8e8;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .payment-method:hover, .payment-method.active {
-            border-color: #0052D9;
-            background: #f0f7ff;
-        }
-        
-        .payment-method-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-        
-        .payment-method-name {
-            font-size: 0.85rem;
-            color: #666;
-        }
-        
-        .qr-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-            border-radius: 12px;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
+        .modal-header {
+            padding: 24px 24px 0;
             position: relative;
-            overflow: hidden;
         }
         
-        .qr-code::before {
-            content: '';
+        .modal-close {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            border-radius: 8px;
-            transform: translate(-50%, -50%);
-        }
-        
-        .qr-code::after {
-            content: 'W';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            font-weight: 700;
-            color: #0052D9;
-        }
-        
-        .qr-tips {
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
-        
-        .countdown {
-            color: #ff4d4f;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        
-        .payment-footer {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        
-        .payment-footer p {
-            color: #999;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-        }
-        
-        .cancel-btn {
-            padding: 10px 30px;
-            background: #f5f5f5;
+            top: 16px; right: 16px;
+            width: 32px; height: 32px;
             border: none;
-            border-radius: 8px;
-            color: #666;
+            background: none;
+            font-size: 1.5rem;
+            color: #999;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .cancel-btn:hover {
-            background: #e8e8e8;
-        }
-        
-        /* 支付成功页面 */
-        .success-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 400;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .success-modal.show {
-            display: flex;
-        }
-        
-        .success-panel {
-            background: #fff;
-            border-radius: 20px;
-            padding: 50px;
-            width: 450px;
-            text-align: center;
-            animation: slideUp 0.3s ease;
-        }
-        
-        .success-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 3rem;
-            color: #fff;
-            animation: scaleIn 0.5s ease;
         }
         
-        @keyframes scaleIn {
-            0% {
-                transform: scale(0);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(1);
-            }
+        .modal-close:hover { background: rgba(0,0,0,0.05); }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
         
-        .success-panel h2 {
-            color: #52c41a;
-            margin-bottom: 15px;
+        .modal-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        .modal-footer {
+            padding: 0 24px 24px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .modal-footer .btn { flex: 1; }
+        
+        /* 表单 */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* 标签页 */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+        
+        .tab {
+            padding: 8px 16px;
+            border: none;
+            background: none;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: rgba(0,82,217,0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* 购物车侧边栏 */
+        .cart-sidebar {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 380px; max-width: 90vw;
+            height: 100%;
+            background: #fff;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1010;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-sidebar.show { right: 0; }
+        
+        .cart-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h3 { font-size: 1.1rem; }
+        
+        .cart-items {
+            flex: 1;
+            overflow: auto;
+            padding: 16px 24px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .cart-item-icon {
+            width: 48px; height: 48px;
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.5rem;
         }
         
-        .success-panel p {
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
+        .cart-item-info { flex: 1; }
+        
+        .cart-item-name { font-weight: 500; margin-bottom: 2px; }
+        
+        .cart-item-price { color: var(--danger); font-size: 0.9rem; }
+        
+        .cart-item-remove {
+            width: 28px; height: 28px;
+            border: none;
+            background: none;
+            color: #999;
+            cursor: pointer;
+            border-radius: 50%;
         }
         
-        .download-section {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
+        .cart-item-remove:hover { background: rgba(255,77,79,0.1); color: var(--danger); }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .cart-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+        
+        .cart-total-price { font-size: 1.4rem; font-weight: 700; color: var(--danger); }
+        
+        /* 支付方式 */
+        .payment-methods {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-method {
+            flex: 1;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover { border-color: var(--primary); }
+        
+        .payment-method.active {
+            border-color: var(--primary);
+            background: rgba(0,82,217,0.05);
+        }
+        
+        .payment-method-icon { font-size: 2rem; margin-bottom: 8px; }
+        
+        /* 下载列表 */
+        .download-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
         }
         
         .download-item {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
         }
         
-        .download-item:last-child {
-
+        .download-item-icon { font-size: 1.5rem; }
+        
+        .download-item-info { flex: 1; }
+        
+        .download-item-name { font-weight: 500; margin-bottom: 2px; }
+        
+        .download-item-size { color: var(--text-secondary); font-size: 0.85rem; }
         
         /* 页脚 */
         footer {
-            padding: 60px;
+            padding: 40px;
             text-align: center;
             background: #fff;
-            border-top: 1px solid #eee;
-            color: #999;
-            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
         
-        footer p {
-            margin-bottom: 10px;
-        }
-        
+        /* 移动端适配 */
         @media (max-width: 768px) {
-            .products {
-                padding: 20px 15px;
-            }
+            nav { padding: 12px 20px; }
+            .logo { font-size: 1.1rem; }
+            
+            .hero { padding: 120px 20px 60px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            
+            .section { padding: 40px 20px; }
+            .section-title { font-size: 1.5rem; }
             
             .products-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 16px;
             }
             
-            .hero {
-                padding: 120px 20px 40px;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero p {
-                font-size: 0.95rem;
-            }
-            
-            nav {
-                padding: 12px 15px;
-            }
-            
-            .logo {
-                font-size: 1.1rem;
-            }
-            
-            .nav-right {
-                gap: 15px;
-            }
-            
-            .cart-btn {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .section-title {
-                font-size: 1.4rem;
-                margin-bottom: 25px;
-            }
-            
-            .product-card {
-                padding: 0;
-            }
-            
-            .product-cover {
-                height: 150px;
-            }
-            
-            .product-info {
-                padding: 20px;
-            }
-            
-            .product-info h3 {
-                font-size: 1rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .auth-panel {
-                width: 90%;
-                max-width: 360px;
-                padding: 25px;
-            }
-            
-            .payment-panel {
-                width: 90%;
-                max-width: 360px;
-                padding: 25px;
-            }
-            
-            .success-panel {
-                width: 90%;
-                max-width: 360px;
-                padding: 30px 20px;
-            }
-            
-            .cart-panel {
-                width: 85%;
-                max-width: 360px;
-            }
-            
-            footer {
-                padding: 30px 20px;
-            }
-        }
-        
-        /* 登录/注册弹窗 */
-        .auth-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 99999;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .auth-modal.show {
-            display: flex !important;
-        }
-        
-        .auth-panel {
-            background: #fff;
-            border-radius: 20px;
-            padding: 40px;
-            width: 420px;
-            max-width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideUp 0.3s ease;
-            position: relative;
-        }
-        
-        .auth-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .auth-header h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .auth-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        
-        .auth-tab {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            background: #f5f5f5;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .auth-tab.active {
-            background: #0052D9;
-            color: #fff;
-        }
-        
-        .auth-form {
-            display: none;
-        }
-        
-        .auth-form.active {
-            display: block;
-        }
-        
-        .auth-form input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e8e8e8;
-            border-radius: 10px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-        
-        .auth-form input:focus {
-            outline: none;
-            border-color: #0052D9;
-        }
-        
-        .auth-form button {
-            width: 100%;
-            padding: 14px;
-            background: #0052D9;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .auth-form button:hover {
-            background: #0045b8;
-        }
-        
-        .auth-footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #999;
-            font-size: 0.85rem;
-        }
-        
-        .auth-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-        }
-        
-        /* 用户信息 */
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            background: #0052D9;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 600;
-        }
-        
-        .user-name {
-            color: #1a1a1a;
-            font-weight: 500;
-        }
-        
-        .logout-btn {
-            padding: 8px 16px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 6px;
-            color: #666;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-        
-        .logout-btn:hover {
-            background: #e8e8e8;
-        }
-
-        /* 注册增强样式 */
-        .form-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e8e8e8;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #0052D9;
-        }
-
-        .form-group input.error {
-            border-color: #ff4d4f;
-        }
-
-        .form-group input.success {
-            border-color: #52c41a;
-        }
-
-        .form-group .input-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-        }
-
-        .form-group .toggle-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #999;
-            font-size: 1.1rem;
-        }
-
-        .error-message {
-            color: #ff4d4f;
-            font-size: 0.8rem;
-            margin-top: -10px;
-            margin-bottom: 10px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        /* 密码强度指示器 */
-        .password-strength {
-            display: flex;
-            gap: 4px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-        }
-
-        .strength-bar {
-            flex: 1;
-            height: 4px;
-            background: #e8e8e8;
-            border-radius: 2px;
-            transition: background 0.3s;
-        }
-
-        .strength-bar.weak {
-            background: #ff4d4f;
-        }
-
-        .strength-bar.medium {
-            background: #faad14;
-        }
-
-        .strength-bar.strong {
-            background: #52c41a;
-        }
-
-        .strength-text {
-            font-size: 0.75rem;
-            color: #999;
-            margin-bottom: 10px;
-        }
-
-        .strength-text.weak {
-            color: #ff4d4f;
-        }
-
-        .strength-text.medium {
-            color: #faad14;
-        }
-
-        .strength-text.strong {
-            color: #52c41a;
-        }
-
-        /* 用户协议 */
-        .agreement {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .agreement input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
-            cursor: pointer;
-        }
-
-        .agreement a {
-            color: #0052D9;
-            text-decoration: none;
-        }
-
-        .agreement a:hover {
-            text-decoration: underline;
-        }
-
-        /* Toast 提示 */
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 24px;
-            background: #333;
-            color: #fff;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            z-index: 9999999;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .toast.show {
-            opacity: 1;
-        }
-
-        .toast.success {
-            background: #52c41a;
-        }
-
-        .toast.error {
-            background: #ff4d4f;
-        }
-
-        /* 发送验证码按钮 */
-        .input-with-btn {
-            display: flex;
-            gap: 10px;
-        }
-
-        .input-with-btn input {
-            flex: 1;
-        }
-
-        .send-code-btn {
-            padding: 14px 16px;
-            background: #f5f5f5;
-            border: 2px solid #e8e8e8;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.3s;
-            color: #666;
-        }
-
-        .send-code-btn:hover:not(:disabled) {
-            background: #e8e8e8;
-        }
-
-        .send-code-btn:disabled {
-            color: #999;
-            cursor: not-allowed;
-        }
-
-        /* 必填标记 */
-        .required::after {
-            content: ' *';
-            color: #ff4d4f;
+            .modal { max-width: 100%; }
+            .cart-sidebar { width: 100%; right: -100%; }
         }
     </style>
 </head>
 <body>
+    <!-- 导航 -->
     <nav>
-        <div class="logo">📚 WanGe 资源站</div>
+        <div class="logo">📚 WanGe AI资源站</div>
         <div class="nav-right">
-            <div id="userSection">
-                <button class="cart-btn" onclick="showAuth('login')" style="background:#52c41a;">登录 / 注册</button>
-            </div>
-            <button class="cart-btn" onclick="toggleCart()">
+            <button class="btn btn-primary cart-btn" onclick="toggleCart()">
                 🛒 购物车
                 <span class="cart-count" id="cartCount">0</span>
             </button>
-            <a href="admin.html" style="padding:10px 20px;background:#666;color:#fff;border-radius:8px;text-decoration:none;font-size:0.9rem;">⚙️ 管理</a>
+            <button class="btn btn-secondary" id="authBtn" onclick="showAuth()">登录</button>
+            <div id="userInfo" style="display:none;align-items:center;gap:8px;">
+                <span id="userName"></span>
+                <button class="btn btn-ghost" onclick="logout()">退出</button>
+            </div>
         </div>
     </nav>
-    
+
+    <!-- Hero -->
     <section class="hero">
-        <h1>优质 AI 资源下载</h1>
-        <p>精选 AI 教程、工具包、研究报告，助您快速掌握人工智能技术</p>
+        <h1>AI 学习资源一站式获取</h1>
+        <p>精选 AI 提示词、工具包、学习资料，助力你的 AI 之旅</p>
+        <button class="btn btn-primary btn-lg" onclick="scrollToProducts()">浏览资源</button>
     </section>
-    
-    <section class="products">
+
+    <!-- 产品区 -->
+    <section class="section" id="products">
         <h2 class="section-title">🔥 热门资源</h2>
         <div class="products-grid" id="productsGrid">
-            <!-- 产品列表由 JavaScript 动态渲染 -->
+            <!-- 产品卡片由 JS 生成 -->
         </div>
     </section>
 
-    <!-- 购物车弹窗 -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-panel">
-            <div class="cart-header">
-                <h2>🛒 购物车</h2>
-                <button class="close-btn" onclick="toggleCart()">✕</button>
-            </div>
-            <div id="cartItems"></div>
-            <div class="cart-total">
-                <div class="total-row">
-                    <span>商品总价</span>
-                    <span id="subtotal">¥0</span>
-                </div>
-                <div class="total-row">
-                    <span>优惠</span>
-                    <span style="color: #52c41a;">-¥0</span>
-                </div>
-                <div class="total-row final">
-                    <span>合计</span>
-                    <span id="total">¥0</span>
-                </div>
-                <button class="checkout-btn" onclick="showPayment()">去结算</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 支付弹窗 -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-panel">
-            <div class="payment-header">
-                <h2>💳 订单支付</h2>
-                <p style="color: #999; font-size: 0.85rem;">订单号：<span id="orderId">-</span></p>
-            </div>
-            
-            <div class="order-info">
-                <div class="order-row">
-                    <span>商品数量</span>
-                    <span id="orderCount">0 件</span>
-                </div>
-                <div class="order-row">
-                    <span>应付金额</span>
-                    <span id="orderAmount">¥0</span>
-                </div>
-            </div>
-            
-            <div class="payment-methods">
-                <div class="payment-method active" onclick="selectPayment('wechat')">
-                    <div class="payment-method-icon">💚</div>
-                    <div class="payment-method-name">微信支付</div>
-                </div>
-                <div class="payment-method" onclick="selectPayment('alipay')">
-                    <div class="payment-method-icon">💙</div>
-                    <div class="payment-method-name">支付宝</div>
-                </div>
-            </div>
-            
-            <div class="qr-section">
-                <div class="qr-code" id="qrCode"></div>
-                <p class="qr-tips">请使用微信扫一扫完成支付</p>
-                <p class="countdown">支付剩余时间：<span id="countdown">05:00</span></p>
-            </div>
-            
-            <div class="payment-footer">
-                <p>支付完成后页面将自动跳转</p>
-                <button class="cancel-btn" onclick="closePayment()">取消支付</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 支付成功弹窗 -->
-    <div class="success-modal" id="successModal">
-        <div class="success-panel">
-            <div class="success-icon">✓</div>
-            <h2>支付成功！</h2>
-            <p>感谢您的购买，资源已准备好下载</p>
-            
-            <div class="download-section" id="downloadSection">
-                <!-- 动态生成下载列表 -->
-            </div>
-            
-            <button class="checkout-btn" onclick="closeSuccess()">完成</button>
-        </div>
-    </div>
-    
     <!-- 登录/注册弹窗 -->
-    <div class="auth-modal" id="authModal" style="position:fixed;top:0;left:0;width:100%;height:100%;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999999;">
-        <div class="auth-panel" style="margin:auto;">
-            <button onclick="closeAuth()" style="position:absolute;top:15px;right:15px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#999;">✕</button>
-            <div class="auth-header">
-                <h2 id="authTitle">欢迎登录</h2>
-                <p style="color:#999;font-size:0.85rem;" id="authSubtitle">登录后享受更多权益</p>
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeAuth()">×</button>
+                <div class="modal-title" id="authTitle">欢迎登录</div>
+                <div class="modal-subtitle">登录后享受更多权益</div>
             </div>
-
-            <div class="auth-tabs">
-                <button class="auth-tab active" onclick="switchAuth('login')">登录</button>
-                <button class="auth-tab" onclick="switchAuth('register')">注册</button>
+            <div class="modal-body">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('login')">登录</button>
+                    <button class="tab" onclick="switchTab('register')">注册</button>
+                </div>
+                
+                <!-- 登录表单 -->
+                <div class="tab-content active" id="loginTab">
+                    <div class="form-group">
+                        <label class="form-label">用户名 / 邮箱</label>
+                        <input type="text" class="form-input" id="loginUser" placeholder="请输入用户名或邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <input type="password" class="form-input" id="loginPass" placeholder="请输入密码">
+                    </div>
+                    <button class="btn btn-primary btn-lg" style="width:100%" onclick="handleLogin()">登录</button>
+                </div>
+                
+                <!-- 注册表单 -->
+                <div class="tab-content" id="registerTab">
+                    <div class="form-group">
+                        <label class="form-label">用户名</label>
+                        <input type="text" class="form-input" id="regUser" placeholder="设置用户名">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">邮箱</label>
+                        <input type="email" class="form-input" id="regEmail" placeholder="输入邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <input type="password" class="form-input" id="regPass" placeholder="设置密码（至少6位）">
+                    </div>
+                    <button class="btn btn-primary btn-lg" style="width:100%" onclick="handleRegister()">注册</button>
+                </div>
             </div>
-
-            <!-- 登录表单 -->
-            <form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <input type="text" placeholder="用户名 / 邮箱 / 手机号" id="loginUsername" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="密码" id="loginPassword" required>
-                    <span class="toggle-password" onclick="togglePassword('loginPassword')">👁️</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:0.85rem;">
-                    <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
-                        <input type="checkbox" id="rememberMe"> 记住我
-                    </label>
-                    <a href="#" onclick="showForgotPassword()" style="color:#0052D9;text-decoration:none;">忘记密码？</a>
-                </div>
-                <button type="submit">登 录</button>
-                <div class="auth-footer">
-                    还没有账号？<a href="#" onclick="switchAuth('register')" style="color:#0052D9;">立即注册</a>
-                </div>
-            </form>
-
-            <!-- 注册表单 -->
-            <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
-                <div class="form-group">
-                    <input type="text" placeholder="用户名（4-16位字母数字）" id="regUsername" required oninput="validateUsername(this)">
-                </div>
-                <p class="error-message" id="usernameError"></p>
-
-                <div class="form-group">
-                    <input type="tel" placeholder="手机号（选填）" id="regPhone" oninput="validatePhone(this)">
-                </div>
-                <p class="error-message" id="phoneError"></p>
-
-                <div class="form-group">
-                    <input type="email" placeholder="邮箱地址" id="regEmail" required oninput="validateEmail(this)">
-                </div>
-                <p class="error-message" id="emailError"></p>
-
-                <div class="form-group" style="margin-bottom:5px;">
-                    <input type="password" placeholder="设置密码（6-20位）" id="regPassword" required oninput="checkPasswordStrength(this.value)">
-                    <span class="toggle-password" onclick="togglePassword('regPassword')">👁️</span>
-                </div>
-                <div class="password-strength" id="passwordStrength">
-                    <div class="strength-bar" id="bar1"></div>
-                    <div class="strength-bar" id="bar2"></div>
-                    <div class="strength-bar" id="bar3"></div>
-                    <div class="strength-bar" id="bar4"></div>
-                </div>
-                <p class="strength-text" id="strengthText"></p>
-
-                <div class="form-group" style="margin-bottom:5px;">
-                    <input type="password" placeholder="确认密码" id="regPasswordConfirm" required oninput="validatePasswordConfirm(this)">
-                    <span class="toggle-password" onclick="togglePassword('regPasswordConfirm')">👁️</span>
-                </div>
-                <p class="error-message" id="passwordConfirmError"></p>
-
-                <div class="agreement">
-                    <input type="checkbox" id="agreeTerms" required>
-                    <span>我已阅读并同意 <a href="#" onclick="showTerms('user')">《用户协议》</a> 和 <a href="#" onclick="showTerms('privacy')">《隐私政策》</a></span>
-                </div>
-
-                <button type="submit" id="registerBtn">注 册</button>
-                <div class="auth-footer">
-                    已有账号？<a href="#" onclick="switchAuth('login')" style="color:#0052D9;">立即登录</a>
-                </div>
-            </form>
         </div>
     </div>
 
-    <!-- Toast 提示 -->
-    <div class="toast" id="toast"></div>
-    
+    <!-- 购物车侧边栏 -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>🛒 购物车</h3>
+            <button class="modal-close" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">购物车是空的</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>合计</span>
+                <span class="cart-total-price" id="cartTotal">¥0</span>
+            </div>
+            <button class="btn btn-primary btn-lg" style="width:100%" onclick="showPayment()" id="checkoutBtn" disabled>去结算</button>
+        </div>
+    </div>
+
+    <!-- 支付弹窗 -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closePayment()">×</button>
+                <div class="modal-title">确认订单</div>
+                <div class="modal-subtitle">订单号: <span id="orderId"></span></div>
+            </div>
+            <div class="modal-body">
+                <div style="background:var(--bg);padding:16px;border-radius:var(--radius-sm);margin-bottom:20px;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                        <span>商品数量</span>
+                        <span id="orderCount">0 件</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:1.1rem;font-weight:600;">
+                        <span>应付金额</span>
+                        <span style="color:var(--danger)" id="orderAmount">¥0</span>
+                    </div>
+                </div>
+                
+                <div class="form-label" style="margin-bottom:12px;">选择支付方式</div>
+                <div class="payment-methods">
+                    <div class="payment-method active" onclick="selectPayment('wechat')">
+                        <div class="payment-method-icon">💚</div>
+                        <div>微信支付</div>
+                    </div>
+                    <div class="payment-method" onclick="selectPayment('alipay')">
+                        <div class="payment-method-icon">💙</div>
+                        <div>支付宝</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePayment()">取消</button>
+                <button class="btn btn-primary" onclick="processPayment()">立即支付</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 支付成功弹窗 -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal" style="text-align:center;">
+            <div class="modal-body">
+                <div style="font-size:4rem;margin-bottom:16px;">🎉</div>
+                <div class="modal-title">支付成功！</div>
+                <div class="modal-subtitle" style="margin-bottom:24px;">感谢您的购买</div>
+                
+                <div class="download-list" id="downloadList">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+            <div class="modal-footer" style="flex-direction:column;">
+                <button class="btn btn-primary btn-lg" style="width:100%" onclick="downloadAll()">⬇️ 打包下载全部</button>
+                <button class="btn btn-secondary" style="width:100%" onclick="closeSuccess()">完成</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
     <footer>
         <p>© 2026 WanGe AIGC. All rights reserved.</p>
         <p>本站所有资源仅供学习交流使用</p>
     </footer>
-    
-    <script>
-        let cart = [];
-        let currentPayment = 'wechat';
-        let countdownTimer = null;
-        let orderNumber = '';
-        let currentUser = null;
 
-        // 默认产品数据
-        const defaultProducts = [
-            { id: 1, name: 'AI 绘画入门指南', desc: '从零开始学习 AI 绘画，涵盖 Midjourney、DALL-E 等主流工具', price: 29.9, originalPrice: 99, badge: '热卖', icon: '🎨', sales: 1234, status: 'active' },
-            { id: 2, name: 'ChatGPT 高级玩法', desc: '提示词技巧、API 调用、自动化工作流完全指南', price: 39.9, originalPrice: 129, badge: '推荐', icon: '🤖', sales: 2341, status: 'active' },
-            { id: 3, name: 'AI 写作变现课', desc: '自媒体、文案、小说创作与变现策略', price: 59.9, originalPrice: 199, badge: '新品', icon: '✍️', sales: 876, status: 'active' },
-            { id: 4, name: 'AI 视频制作工具包', desc: '包含脚本模板、配音指南、剪辑技巧与案例分析', price: 49.9, originalPrice: 199, badge: '', icon: '📦', sales: 3200, status: 'active' },
-            { id: 5, name: 'AI 产品经理实战手册', desc: 'AI 产品设计方法论、案例分析与落地指南', price: 59.9, originalPrice: 159, badge: '热卖', icon: '💼', sales: 4100, status: 'active' },
-            { id: 6, name: 'AI 工具清单 2026 版', desc: '500+ AI 工具分类整理，附使用场景与优缺点分析', price: 0, originalPrice: 29, badge: '免费', icon: '🎁', sales: 12500, status: 'active' }
+    <script>
+        // 数据
+        const products = [
+            { id: 1, name: 'ChatGPT 提示词大全', desc: '1000+ 精选提示词，覆盖办公、编程、创作等场景', price: 29.9, original: 99, icon: '🤖', badge: '热销' },
+            { id: 2, name: 'Midjourney 提示词库', desc: '500+ 艺术风格提示词，附效果图', price: 19.9, original: 59, icon: '🎨', badge: '推荐' },
+            { id: 3, name: 'AI 工具导航合集', desc: '收录 200+ 实用 AI 工具，分类整理', price: 9.9, original: 29, icon: '🧰', badge: '新品' },
+            { id: 4, name: 'Stable Diffusion 模型包', desc: '精选大模型 + LoRA + 工作流', price: 39.9, original: 129, icon: '🖼️', badge: null },
+            { id: 5, name: 'AI 写作助手模板', desc: '小红书、公众号、知乎等爆款文案模板', price: 15.9, original: 49, icon: '✍️', badge: null },
+            { id: 6, name: 'AI 视频制作教程', desc: '从入门到精通，含素材包', price: 49.9, original: 199, icon: '🎬', badge: '精品' }
         ];
 
-        // 渲染产品列表
-        function renderProducts() {
-            const products = JSON.parse(localStorage.getItem('wangeProducts')) || defaultProducts;
-            const grid = document.getElementById('productsGrid');
+        let cart = [];
+        let currentUser = null;
+        let currentPayment = 'wechat';
 
-            grid.innerHTML = products.filter(p => p.status === 'active').map(p => {
-                const icon = p.icon || '📦';
-                const escapedName = p.name.replace(/'/g, "\\'");
-                return `
-                <div class="product-card">
-                    <div class="product-cover">
-                        ${p.badge ? '<span class="product-badge ' + (p.badge === '热卖' ? 'hot' : '') + '">' + p.badge + '</span>' : ''}
-                        <span class="icon">${icon}</span>
+        // 初始化
+        function init() {
+            renderProducts();
+            checkLoginStatus();
+        }
+
+        // 渲染产品
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(p => `
+                <div class="card">
+                    <div class="card-cover">
+                        ${p.badge ? `<span class="card-badge">${p.badge}</span>` : ''}
+                        ${p.icon}
                     </div>
-                    <div class="product-info">
-                        <h3>${p.name}</h3>
-                        <p>${p.desc || ''}</p>
-                        <div class="product-meta">
-                            <span>📄 PDF</span>
-                            <span>⬇️ ${(p.sales / 1000).toFixed(1)}k</span>
+                    <div class="card-body">
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-desc">${p.desc}</div>
+                        <div class="card-footer">
+                            <div class="price">
+                                <span class="price-current">¥${p.price}</span>
+                                <span class="price-original">¥${p.original}</span>
+                            </div>
+                            <button class="btn btn-primary" onclick="addToCart(${p.id})">加入购物车</button>
                         </div>
-                        <div class="product-price">
-                            <span class="current-price">${p.price === 0 ? '免费' : '¥' + p.price}</span>
-                            ${p.originalPrice ? '<span class="original-price">¥' + p.originalPrice + '</span>' : ''}
-                        </div>
-                        ${p.price === 0
-                            ? '<button class="buy-btn" onclick="downloadFree()">立即下载</button>'
-                            : '<button class="buy-btn" data-name="' + escapedName + '" data-price="' + p.price + '" data-icon="' + icon + '" onclick="addToCartFromBtn(this)">加入购物车</button>'
-                        }
                     </div>
                 </div>
-            `}).join('');
+            `).join('');
         }
 
-        // 从按钮添加到购物车
-        function addToCartFromBtn(btn) {
-            const name = btn.dataset.name;
-            const price = parseFloat(btn.dataset.price);
-            const icon = btn.dataset.icon;
-            addToCart(name, price, icon);
-        }
-
-        // 页面加载时检查登录状态
-        window.onload = function() {
-            const savedUser = localStorage.getItem('wangeUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
+        // 检查登录状态
+        function checkLoginStatus() {
+            const saved = localStorage.getItem('wangeUser');
+            if (saved) {
+                currentUser = JSON.parse(saved);
                 updateUserUI();
             }
-            // 渲染产品列表
-            renderProducts();
-        }
-        
-        // 更新用户界面
-        function updateUserUI() {
-            const userSection = document.getElementById('userSection');
-            if (currentUser) {
-                userSection.innerHTML = `
-                    <div class="user-info">
-                        <div class="user-avatar">${currentUser.username.charAt(0).toUpperCase()}</div>
-                        <span class="user-name">${currentUser.username}</span>
-                        <button class="logout-btn" onclick="logout()">退出</button>
-                    </div>
-                `;
-            } else {
-                userSection.innerHTML = `
-                    <button class="cart-btn" onclick="showAuth('login')" style="background:#52c41a;">登录 / 注册</button>
-                `;
-            }
-        }
-        
-        // 显示登录/注册弹窗
-        function showAuth(type) {
-            document.getElementById('authModal').classList.add('show');
-            switchAuth(type);
-            // 重置表单
-            document.getElementById('loginForm').reset();
-            document.getElementById('registerForm').reset();
-            clearAllErrors();
         }
 
-        // 关闭弹窗
+        // 更新用户UI
+        function updateUserUI() {
+            const authBtn = document.getElementById('authBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            
+            if (currentUser) {
+                authBtn.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.textContent = `👤 ${currentUser.name}`;
+            } else {
+                authBtn.style.display = 'inline-flex';
+                userInfo.style.display = 'none';
+            }
+        }
+
+        // 登录相关
+        function showAuth() {
+            document.getElementById('authModal').classList.add('show');
+        }
+
         function closeAuth() {
             document.getElementById('authModal').classList.remove('show');
         }
 
-        // 清除所有错误提示
-        function clearAllErrors() {
-            document.querySelectorAll('.error-message').forEach(el => {
-                el.textContent = '';
-                el.classList.remove('show');
-            });
-            document.querySelectorAll('.form-group input').forEach(el => {
-                el.classList.remove('error', 'success');
-            });
-            resetPasswordStrength();
-        }
-
-        // 切换登录/注册
-        function switchAuth(type) {
-            const tabs = document.querySelectorAll('.auth-tab');
-            const forms = document.querySelectorAll('.auth-form');
-
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', (type === 'login' && index === 0) || (type === 'register' && index === 1));
-            });
-
-            forms.forEach((form, index) => {
-                form.classList.toggle('active', (type === 'login' && index === 0) || (type === 'register' && index === 1));
-            });
-
-            document.getElementById('authTitle').textContent = type === 'login' ? '欢迎登录' : '加入我们';
-            document.getElementById('authSubtitle').textContent = type === 'login' ? '登录后享受更多权益' : '注册账号，开启 AI 之旅';
-        }
-
-        // Toast 提示
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + type;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // 显示错误
-        function showError(fieldId, message) {
-            const errorEl = document.getElementById(fieldId + 'Error');
-            const inputEl = document.getElementById(fieldId);
-            if (errorEl) {
-                errorEl.textContent = message;
-                errorEl.classList.add('show');
-            }
-            if (inputEl) {
-                inputEl.classList.add('error');
-                inputEl.classList.remove('success');
-            }
-        }
-
-        // 显示成功
-        function showSuccess(fieldId) {
-            const errorEl = document.getElementById(fieldId + 'Error');
-            const inputEl = document.getElementById(fieldId);
-            if (errorEl) {
-                errorEl.textContent = '';
-                errorEl.classList.remove('show');
-            }
-            if (inputEl) {
-                inputEl.classList.remove('error');
-                inputEl.classList.add('success');
-            }
-        }
-
-        // 切换密码可见性
-        function togglePassword(fieldId) {
-            const input = document.getElementById(fieldId);
-            input.type = input.type === 'password' ? 'text' : 'password';
-        }
-
-        // 验证用户名
-        function validateUsername(input) {
-            const value = input.value.trim();
-            if (!value) {
-                showError('username', '请输入用户名');
-                return false;
-            }
-            if (value.length < 4 || value.length > 16) {
-                showError('username', '用户名需要4-16个字符');
-                return false;
-            }
-            if (!/^[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(value)) {
-                showError('username', '用户名只能包含字母、数字、下划线或中文');
-                return false;
-            }
-            // 检查是否已存在
-            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
-            if (users.find(u => u.username === value)) {
-                showError('username', '该用户名已被注册');
-                return false;
-            }
-            showSuccess('username');
-            return true;
-        }
-
-        // 验证手机号
-        function validatePhone(input) {
-            const value = input.value.trim();
-            if (!value) {
-                showSuccess('phone'); // 手机号选填，为空时不报错
-                return true;
-            }
-            if (!/^1[3-9]\d{9}$/.test(value)) {
-                showError('phone', '请输入正确的手机号');
-                return false;
-            }
-            // 检查是否已存在
-            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
-            if (users.find(u => u.phone === value)) {
-                showError('phone', '该手机号已被注册');
-                return false;
-            }
-            showSuccess('phone');
-            return true;
-        }
-
-        // 验证邮箱
-        function validateEmail(input) {
-            const value = input.value.trim();
-            if (!value) {
-                showError('email', '请输入邮箱地址');
-                return false;
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                showError('email', '请输入正确的邮箱格式');
-                return false;
-            }
-            // 检查是否已存在
-            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
-            if (users.find(u => u.email === value)) {
-                showError('email', '该邮箱已被注册');
-                return false;
-            }
-            showSuccess('email');
-            return true;
-        }
-
-        // 检查密码强度
-        function checkPasswordStrength(password) {
-            const bars = [
-                document.getElementById('bar1'),
-                document.getElementById('bar2'),
-                document.getElementById('bar3'),
-                document.getElementById('bar4')
-            ];
-            const textEl = document.getElementById('strengthText');
-
-            let strength = 0;
-            if (password.length >= 6) strength++;
-            if (password.length >= 10) strength++;
-            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-            if (/\d/.test(password)) strength++;
-            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
-
-            // 重置
-            bars.forEach(bar => bar.className = 'strength-bar');
-            textEl.className = 'strength-text';
-
-            if (password.length === 0) {
-                textEl.textContent = '';
-                return false;
-            }
-
-            if (strength <= 2) {
-                for (let i = 0; i < strength; i++) bars[i].classList.add('weak');
-                textEl.textContent = '密码强度：弱';
-                textEl.classList.add('weak');
-            } else if (strength <= 3) {
-                for (let i = 0; i < strength; i++) bars[i].classList.add('medium');
-                textEl.textContent = '密码强度：中';
-                textEl.classList.add('medium');
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelector('.tab:nth-child(1)').classList.add('active');
+                document.getElementById('loginTab').classList.add('active');
+                document.getElementById('authTitle').textContent = '欢迎登录';
             } else {
-                for (let i = 0; i < 4; i++) bars[i].classList.add('strong');
-                textEl.textContent = '密码强度：强';
-                textEl.classList.add('strong');
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+                document.getElementById('registerTab').classList.add('active');
+                document.getElementById('authTitle').textContent = '注册账号';
             }
-
-            return password.length >= 6;
         }
 
-        // 重置密码强度
-        function resetPasswordStrength() {
-            document.querySelectorAll('.strength-bar').forEach(bar => bar.className = 'strength-bar');
-            document.getElementById('strengthText').textContent = '';
-            document.getElementById('strengthText').className = 'strength-text';
-        }
-
-        // 验证确认密码
-        function validatePasswordConfirm(input) {
-            const password = document.getElementById('regPassword').value;
-            const confirm = input.value;
-            if (!confirm) {
-                showError('passwordConfirm', '请确认密码');
-                return false;
-            }
-            if (password !== confirm) {
-                showError('passwordConfirm', '两次密码输入不一致');
-                return false;
-            }
-            showSuccess('passwordConfirm');
-            return true;
-        }
-
-        // 处理登录
-        function handleLogin(e) {
-            e.preventDefault();
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!username || !password) {
-                showToast('请填写完整的登录信息', 'error');
+        function handleLogin() {
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            
+            if (!user || !pass) {
+                alert('请填写完整信息');
                 return;
             }
-
-            // 从 localStorage 获取用户数据
-            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
-            const user = users.find(u =>
-                (u.username === username || u.email === username || u.phone === username) &&
-                u.password === password
-            );
-
-            if (user) {
-                currentUser = { username: user.username, email: user.email, phone: user.phone };
-                localStorage.setItem('wangeUser', JSON.stringify(currentUser));
-                updateUserUI();
-                closeAuth();
-                showToast(`欢迎回来，${user.username}！`, 'success');
-            } else {
-                showToast('用户名或密码错误', 'error');
-            }
-        }
-
-        // 处理注册
-        function handleRegister(e) {
-            e.preventDefault();
-
-            const username = document.getElementById('regUsername').value.trim();
-            const phone = document.getElementById('regPhone').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
-            const agreeTerms = document.getElementById('agreeTerms').checked;
-
-            // 验证所有字段
-            let valid = true;
-
-            if (!validateUsername(document.getElementById('regUsername'))) valid = false;
-            if (!validatePhone(document.getElementById('regPhone'))) valid = false;
-            if (!validateEmail(document.getElementById('regEmail'))) valid = false;
-            if (!checkPasswordStrength(password)) {
-                showToast('密码至少需要6位', 'error');
-                valid = false;
-            }
-            if (password !== passwordConfirm) {
-                showError('passwordConfirm', '两次密码输入不一致');
-                valid = false;
-            }
-            if (!agreeTerms) {
-                showToast('请阅读并同意用户协议', 'error');
-                valid = false;
-            }
-
-            if (!valid) return;
-
-            // 保存用户到 localStorage
-            const users = JSON.parse(localStorage.getItem('wangeUsers') || '[]');
-            const newUser = {
-                username,
-                email,
-                phone,
-                password,
-                createdAt: new Date().toISOString()
-            };
-            users.push(newUser);
-            localStorage.setItem('wangeUsers', JSON.stringify(users));
-
-            // 自动登录
-            currentUser = { username, email, phone };
+            
+            currentUser = { name: user, email: user };
             localStorage.setItem('wangeUser', JSON.stringify(currentUser));
             updateUserUI();
             closeAuth();
-            showToast(`注册成功！欢迎加入，${username}！`, 'success');
+            alert('登录成功！');
         }
 
-        // 退出登录
+        function handleRegister() {
+            const user = document.getElementById('regUser').value;
+            const email = document.getElementById('regEmail').value;
+            const pass = document.getElementById('regPass').value;
+            
+            if (!user || !email || !pass) {
+                alert('请填写完整信息');
+                return;
+            }
+            if (pass.length < 6) {
+                alert('密码至少6位');
+                return;
+            }
+            
+            currentUser = { name: user, email: email };
+            localStorage.setItem('wangeUser', JSON.stringify(currentUser));
+            updateUserUI();
+            closeAuth();
+            alert('注册成功！已自动登录');
+        }
+
         function logout() {
             currentUser = null;
             localStorage.removeItem('wangeUser');
             updateUserUI();
-            showToast('已退出登录', 'info');
+            alert('已退出登录');
         }
 
-        // 忘记密码
-        function showForgotPassword() {
-            showToast('请联系客服重置密码', 'info');
-        }
-
-        // 显示用户协议
-        function showTerms(type) {
-            if (type === 'user') {
-                alert('《用户协议》\n\n1. 用户应遵守国家法律法规\n2. 用户不得利用本平台从事违法活动\n3. 用户应保护好自己的账号密码\n4. 本平台保留最终解释权');
-            } else {
-                alert('《隐私政策》\n\n1. 我们收集的信息仅用于提供服务\n2. 我们不会向第三方出售用户信息\n3. 用户有权要求删除个人数据\n4. 我们采用安全措施保护用户数据');
-            }
-        }
-        
-        // 检查是否登录
-        function checkLogin() {
-            if (!currentUser) {
-                showAuth('login');
-                return false;
-            }
-            return true;
-        }
-        
-        // 生成订单号
-        function generateOrderId() {
-            const date = new Date();
-            const timestamp = date.getTime().toString().slice(-8);
-            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            return `WG${timestamp}${random}`;
-        }
-        
-        function addToCart(name, price, icon) {
-            if (!checkLogin()) return;
-
-            cart.push({ name, price, icon, id: Date.now() });
-            updateCart();
-        }
-
-        // 从按钮添加到购物车（带按钮动画）
-        function addToCartFromBtn(btn) {
-            const name = btn.dataset.name;
-            const price = parseFloat(btn.dataset.price);
-            const icon = btn.dataset.icon;
-
-            if (!checkLogin()) return;
-
-            cart.push({ name, price, icon, id: Date.now() });
-            updateCart();
-
-            // 按钮动画
-            btn.textContent = '✓ 已添加';
-            btn.classList.add('added');
-            setTimeout(() => {
-                btn.textContent = '加入购物车';
-                btn.classList.remove('added');
-            }, 1500);
-        }
-        
-        function updateCart() {
-            document.getElementById('cartCount').textContent = cart.length;
-            
-            const cartItems = document.getElementById('cartItems');
-            let html = '';
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                html += `
-                    <div class="cart-item">
-                        <div class="cart-item-icon">${item.icon}</div>
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <span class="price">¥${item.price}</span>
-                        </div>
-                        <button onclick="removeFromCart(${index})" style="background:none;border:none;color:#999;cursor:pointer;">✕</button>
-                    </div>
-                `;
-                total += item.price;
-            });
-            
-            cartItems.innerHTML = html || '<p style="text-align:center;color:#999;padding:40px;">购物车是空的</p>';
-            document.getElementById('subtotal').textContent = `¥${total.toFixed(1)}`;
-            document.getElementById('total').textContent = `¥${total.toFixed(1)}`;
-        }
-        
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
-        
+        // 购物车
         function toggleCart() {
-            document.getElementById('cartModal').classList.toggle('show');
+            document.getElementById('cartSidebar').classList.toggle('show');
         }
-        
-        function showPayment() {
-            if (!checkLogin()) return;
-            
-            if (cart.length === 0) {
-                alert('购物车是空的');
+
+        function addToCart(productId) {
+            if (!currentUser) {
+                showAuth();
                 return;
             }
             
-            // 生成订单信息
-            orderNumber = generateOrderId();
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const product = products.find(p => p.id === productId);
+            cart.push({ ...product, cartId: Date.now() });
+            updateCart();
             
-            document.getElementById('orderId').textContent = orderNumber;
-            document.getElementById('orderCount').textContent = `${cart.length} 件`;
-            document.getElementById('orderAmount').textContent = `¥${total.toFixed(1)}`;
-            
-            // 显示支付弹窗
-            document.getElementById('paymentModal').classList.add('show');
-            
-            // 开始倒计时
-            startCountdown();
-            
-            // 模拟支付检测（5秒后自动成功）
-            setTimeout(() => {
-                if (document.getElementById('paymentModal').classList.contains('show')) {
-                    paymentSuccess();
-                }
-            }, 5000);
+            // 显示购物车
+            document.getElementById('cartSidebar').classList.add('show');
         }
-        
-        function selectPayment(method) {
-            currentPayment = method;
-            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+
+        function removeFromCart(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = document.getElementById('cartCount');
+            const items = document.getElementById('cartItems');
+            const total = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
             
-            const qrTips = document.querySelector('.qr-tips');
-            if (method === 'wechat') {
-                qrTips.textContent = '请使用微信扫一扫完成支付';
+            count.textContent = cart.length;
+            
+            if (cart.length === 0) {
+                items.innerHTML = '<div class="cart-empty">购物车是空的</div>';
+                total.textContent = '¥0';
+                checkoutBtn.disabled = true;
             } else {
-                qrTips.textContent = '请使用支付宝扫一扫完成支付';
+                items.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-icon">${item.icon}</div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">¥${item.price}</div>
+                        </div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${item.cartId})">×</button>
+                    </div>
+                `).join('');
+                
+                const sum = cart.reduce((s, i) => s + i.price, 0);
+                total.textContent = `¥${sum.toFixed(1)}`;
+                checkoutBtn.disabled = false;
             }
         }
-        
-        function startCountdown() {
-            let minutes = 5;
-            let seconds = 0;
+
+        // 支付
+        function showPayment() {
+            if (cart.length === 0) return;
             
-            if (countdownTimer) clearInterval(countdownTimer);
+            const orderId = 'WG' + Date.now().toString().slice(-10);
+            document.getElementById('orderId').textContent = orderId;
+            document.getElementById('orderCount').textContent = cart.length + ' 件';
+            document.getElementById('orderAmount').textContent = '¥' + cart.reduce((s, i) => s + i.price, 0).toFixed(1);
             
-            countdownTimer = setInterval(() => {
-                if (seconds === 0) {
-                    if (minutes === 0) {
-                        clearInterval(countdownTimer);
-                        closePayment();
-                        alert('支付超时，请重新下单');
-                        return;
-                    }
-                    minutes--;
-                    seconds = 59;
-                } else {
-                    seconds--;
-                }
-                
-                document.getElementById('countdown').textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
+            document.getElementById('cartSidebar').classList.remove('show');
+            document.getElementById('paymentModal').classList.add('show');
         }
-        
+
         function closePayment() {
             document.getElementById('paymentModal').classList.remove('show');
-            if (countdownTimer) clearInterval(countdownTimer);
         }
-        
-        function paymentSuccess() {
-            closePayment();
 
-            // 保存订单到 localStorage
-            const orders = JSON.parse(localStorage.getItem('wangeOrders') || '[]');
-            const newOrder = {
-                id: orderNumber,
-                user: currentUser.username,
-                email: currentUser.email,
-                items: cart.map(item => ({ name: item.name, price: item.price })),
-                total: cart.reduce((sum, item) => sum + item.price, 0),
-                payment: currentPayment,
-                status: 'paid',
-                time: new Date().toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).replace(/\//g, '-')
-            };
-            orders.unshift(newOrder);
-            localStorage.setItem('wangeOrders', JSON.stringify(orders));
+        function selectPayment(method) {
+            currentPayment = method;
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
 
+        function processPayment() {
             // 生成下载列表
-            const downloadSection = document.getElementById('downloadSection');
-            let html = '<h4 style="margin-bottom:15px;text-align:left;">已购资源：</h4>';
-
-            cart.forEach(item => {
-                html += `
-                    <div class="download-item">
-                        <span style="font-size:1.5rem;">${item.icon}</span>
-                        <div style="flex:1;text-align:left;">
-                            <div style="font-weight:500;">${item.name}</div>
-                            <div style="font-size:0.8rem;color:#999;">PDF 文件</div>
-                        </div>
-                        <button onclick="downloadFile('${item.name}')" style="padding:8px 16px;background:#0052D9;color:#fff;border:none;border-radius:6px;cursor:pointer;">下载</button>
+            const list = document.getElementById('downloadList');
+            list.innerHTML = cart.map(item => `
+                <div class="download-item">
+                    <div class="download-item-icon">${item.icon}</div>
+                    <div class="download-item-info">
+                        <div class="download-item-name">${item.name}</div>
+                        <div class="download-item-size">点击下载</div>
                     </div>
-                `;
-            });
-
-            downloadSection.innerHTML = html;
-            document.getElementById('successModal').classList.add('show');
+                    <button class="btn btn-primary" onclick="downloadItem('${item.name}')">下载</button>
+                </div>
+            `).join('');
             
-            // 清空购物车
+            closePayment();
+            document.getElementById('successModal').classList.add('show');
+        }
+
+        function closeSuccess() {
+            document.getElementById('successModal').classList.remove('show');
             cart = [];
             updateCart();
         }
-        
-        function closeSuccess() {
-            document.getElementById('successModal').classList.remove('show');
-            toggleCart();
+
+        function downloadItem(name) {
+            alert(`开始下载: ${name}\n（演示功能）`);
         }
-        
-        function downloadFile(filename) {
-            // 模拟下载
-            alert(`正在下载：${filename}.pdf\n\n（演示模式：实际项目中这里会触发真实下载）`);
+
+        function downloadAll() {
+            alert('开始打包下载全部资源\n（演示功能）');
         }
-        
-        function downloadFree() {
-            if (!checkLogin()) return;
-            
-            const email = prompt('请输入您的邮箱，我们将把下载链接发送给您：');
-            if (email && email.includes('@')) {
-                alert(`✅ 下载链接已发送至 ${email}\n\n请查收邮件并点击链接下载资源。`);
-            } else if (email) {
-                alert('请输入有效的邮箱地址');
-            }
+
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // 点击支付弹窗外部关闭
-        document.getElementById('paymentModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePayment();
-            }
-        });
-        
-        // 点击成功弹窗外部关闭
-        document.getElementById('successModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeSuccess();
-            }
-        });
+
+        // 启动
+        init();
     </script>
 </body>
 </html>
