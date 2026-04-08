@@ -14,8 +14,8 @@
         
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
+            background: #f5f7fa;
+            color: #1a1a1a;
             min-height: 100vh;
         }
         
@@ -26,17 +26,17 @@
             top: 0;
             bottom: 0;
             width: 240px;
-            background: #0d0d0d;
-            border-right: 1px solid rgba(212, 175, 55, 0.1);
+            background: #fff;
+            box-shadow: 2px 0 20px rgba(0, 82, 217, 0.05);
             padding: 30px 20px;
         }
         
         .logo {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #d4af37;
+            color: #0052D9;
             margin-bottom: 40px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
         }
         
         .nav-item {
@@ -45,15 +45,15 @@
             gap: 12px;
             padding: 12px 16px;
             margin-bottom: 8px;
-            border-radius: 8px;
-            color: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            color: #666;
             cursor: pointer;
             transition: all 0.3s;
         }
         
         .nav-item:hover, .nav-item.active {
-            background: rgba(212, 175, 55, 0.1);
-            color: #d4af37;
+            background: #e8f0fe;
+            color: #0052D9;
         }
         
         /* 主内容 */
@@ -72,10 +72,11 @@
         .header h1 {
             font-size: 1.8rem;
             font-weight: 600;
+            color: #1a1a1a;
         }
         
         .date {
-            color: rgba(255, 255, 255, 0.5);
+            color: #999;
             font-size: 0.9rem;
         }
         
@@ -88,14 +89,14 @@
         }
         
         .stat-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 12px;
+            background: #fff;
+            border-radius: 16px;
             padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 82, 217, 0.05);
         }
         
         .stat-card .label {
-            color: rgba(255, 255, 255, 0.5);
+            color: #999;
             font-size: 0.85rem;
             margin-bottom: 10px;
         }
@@ -103,17 +104,17 @@
         .stat-card .value {
             font-size: 2rem;
             font-weight: 700;
-            color: #d4af37;
+            color: #0052D9;
             margin-bottom: 8px;
         }
         
         .stat-card .change {
             font-size: 0.85rem;
-            color: #4ade80;
+            color: #52c41a;
         }
         
         .stat-card .change.down {
-            color: #f87171;
+            color: #ff4d4f;
         }
         
         /* 图表区域 */
@@ -125,17 +126,17 @@
         }
         
         .chart-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 12px;
+            background: #fff;
+            border-radius: 16px;
             padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 82, 217, 0.05);
         }
         
         .chart-card h3 {
             font-size: 1rem;
             font-weight: 500;
             margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.9);
+            color: #1a1a1a;
         }
         
         /* 简易柱状图 */
@@ -149,14 +150,14 @@
         
         .bar {
             flex: 1;
-            background: linear-gradient(180deg, #d4af37 0%, rgba(212, 175, 55, 0.3) 100%);
-            border-radius: 4px 4px 0 0;
+            background: linear-gradient(180deg, #0052D9 0%, #266FE8 100%);
+            border-radius: 6px 6px 0 0;
             position: relative;
             transition: all 0.3s;
         }
         
         .bar:hover {
-            background: linear-gradient(180deg, #e6c551 0%, rgba(212, 175, 55, 0.5) 100%);
+            background: linear-gradient(180deg, #0045b8 0%, #1a5cc9 100%);
         }
         
         .bar-label {
@@ -165,21 +166,22 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: #999;
         }
         
         /* 列表 */
         .list-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 12px;
+            background: #fff;
+            border-radius: 16px;
             padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 82, 217, 0.05);
         }
         
         .list-card h3 {
             font-size: 1rem;
             font-weight: 500;
             margin-bottom: 20px;
+            color: #1a1a1a;
         }
         
         .list-item {
@@ -187,7 +189,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid #f0f0f0;
         }
         
         .list-item:last-child {
@@ -196,11 +198,11 @@
         
         .list-item .title {
             font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: #333;
         }
         
         .list-item .count {
-            color: #d4af37;
+            color: #0052D9;
             font-weight: 600;
         }
         
@@ -214,18 +216,19 @@
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 0.85rem;
+            color: #666;
         }
         
         .progress-bar {
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: #e8ecf1;
             border-radius: 4px;
             overflow: hidden;
         }
         
         .progress-fill {
             height: 100%;
-            background: #d4af37;
+            background: linear-gradient(90deg, #0052D9 0%, #266FE8 100%);
             border-radius: 4px;
             transition: width 0.5s ease;
         }
