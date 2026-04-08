@@ -13,25 +13,103 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #DA291C;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
         
         .container {
             text-align: center;
             padding: 40px;
+            position: relative;
         }
         
+        /* 金拱门 Logo */
+        .logo {
+            width: 120px;
+            height: 100px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .arch {
+            position: absolute;
+            width: 50px;
+            height: 90px;
+            border: 12px solid #FFC72C;
+            border-bottom: none;
+            border-radius: 50px 50px 0 0;
+        }
+        
+        .arch-left {
+            left: 0;
+            transform: rotate(-5deg);
+        }
+        
+        .arch-right {
+            right: 0;
+            transform: rotate(5deg);
+        }
+        
+        /* 主标题 */
         h1 {
-            color: #ffffff;
+            color: #FFC72C;
             font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
+            font-weight: 800;
+            letter-spacing: 0.05em;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 2s ease-in-out;
+            margin-bottom: 15px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        /* 副标题 */
+        .subtitle {
+            color: #FFFFFF;
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            margin-top: 20px;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        
+        /* 装饰元素 - 薯条 */
+        .fries {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 80px;
+        }
+        
+        .fry {
+            position: absolute;
+            width: 8px;
+            height: 60px;
+            background: #FFC72C;
+            border-radius: 4px;
+            bottom: 0;
+        }
+        
+        .fry:nth-child(1) { left: 10px; height: 50px; }
+        .fry:nth-child(2) { left: 22px; height: 70px; }
+        .fry:nth-child(3) { left: 34px; height: 55px; }
+        .fry:nth-child(4) { left: 46px; height: 65px; }
+        
+        /* 红色盒子 */
+        .box {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 25px;
+            background: #DA291C;
+            border: 3px solid #FFC72C;
+            border-radius: 3px;
         }
         
         @keyframes fadeIn {
@@ -45,18 +123,40 @@
             }
         }
         
-        .subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
-            margin-top: 20px;
-            letter-spacing: 0.05em;
+        /* 背景装饰 */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 199, 44, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 199, 44, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
+    <div class="bg-pattern"></div>
     <div class="container">
+        <!-- 金拱门 Logo -->
+        <div class="logo">
+            <div class="arch arch-left"></div>
+            <div class="arch arch-right"></div>
+        </div>
+        
         <h1>欢迎来到万歌AIGC</h1>
         <p class="subtitle">AI 赋能未来</p>
+        
+        <!-- 薯条装饰 -->
+        <div class="fries">
+            <div class="fry"></div>
+            <div class="fry"></div>
+            <div class="fry"></div>
+            <div class="fry"></div>
+            <div class="box"></div>
+        </div>
     </div>
 </body>
 </html>
