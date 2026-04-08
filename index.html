@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WanGe AIGC 作品集</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>万歌AIGC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,175 +13,151 @@
         }
         
         body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background: #0a0a0a;
-            color: #fff;
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
             min-height: 100vh;
-            padding: 80px 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        .header {
+        .container {
             text-align: center;
-            margin-bottom: 80px;
-        }
-        
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: #d4af37;
-            letter-spacing: 0.1em;
-            margin-bottom: 20px;
-        }
-        
-        .header p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.1rem;
-        }
-        
-        .divider {
-            width: 100px;
-            height: 1px;
-            background: #d4af37;
-            margin: 40px auto;
-        }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .project-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 16px;
-            padding: 35px;
-            transition: all 0.4s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .project-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.04);
-        }
-        
-        .project-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .project-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            color: #d4af37;
-        }
-        
-        .project-card p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        
-        .project-status {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(74, 222, 128, 0.1);
-            border: 1px solid rgba(74, 222, 128, 0.3);
+            padding: 80px 100px;
+            background: #fff;
             border-radius: 20px;
-            font-size: 0.8rem;
-            color: #4ade80;
+            box-shadow: 0 10px 60px rgba(0, 82, 217, 0.08);
+            position: relative;
+            max-width: 600px;
         }
         
-        .project-status.coming {
-            background: rgba(251, 191, 36, 0.1);
-            border-color: rgba(251, 191, 36, 0.3);
-            color: #fbbf24;
+        /* 腾讯蓝装饰条 */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0052D9, #266FE8, #0052D9);
+            border-radius: 20px 20px 0 0;
         }
         
-        .tag {
-            display: inline-block;
-            padding: 4px 10px;
-            background: rgba(212, 175, 55, 0.1);
-            border-radius: 4px;
-            font-size: 0.75rem;
-            color: rgba(212, 175, 55, 0.8);
-            margin-right: 8px;
+        /* Logo */
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #0052D9 0%, #266FE8 100%);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #fff;
+            font-weight: 700;
         }
         
-        .footer {
-            text-align: center;
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
+        /* 主标题 */
+        h1 {
+            color: #1a1a1a;
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+        }
+        
+        /* 分隔线 */
+        .divider {
+            width: 50px;
+            height: 3px;
+            background: #0052D9;
+            margin: 25px auto;
+            border-radius: 2px;
+        }
+        
+        /* 副标题 */
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+        
+        /* 底部品牌标识 */
+        .brand-mark {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .brand-mark span {
+            color: #0052D9;
+            font-weight: 500;
+        }
+        
+        /* 装饰圆点 */
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #0052D9;
+            opacity: 0.3;
+        }
+        
+        .dot:nth-child(2) {
+            opacity: 0.6;
+        }
+        
+        .dot:nth-child(3) {
+            opacity: 1;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .container {
+            animation: fadeIn 1s ease-out;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>WANGE AIGC</h1>
-        <p>AI 产品 · 创意作品 · 实用工具</p>
+    <div class="container">
+        <div class="logo">W</div>
+        
+        <h1>欢迎来到万歌AIGC</h1>
+        
         <div class="divider"></div>
-    </div>
-    
-    <div class="projects-grid">
-        <!-- 已上线作品 -->
-        <a href="https://wange-aigc-welcome.vercel.app" class="project-card">
-            <div class="project-icon">🌟</div>
-            <h3>品牌欢迎页</h3>
-            <p>万歌AIGC品牌形象展示，奢侈品视觉风格，金色与黑色的极致优雅</p>
-            <span class="tag">品牌</span>
-            <span class="tag">视觉</span>
-            <span class="project-status">已上线</span>
-        </a>
         
-        <a href="https://wange-ai-gallery.vercel.app" class="project-card">
-            <div class="project-icon">🎨</div>
-            <h3>AI 艺术画廊</h3>
-            <p>纯CSS动态艺术作品集，金色流转、几何之美、抽象波纹、极简线条</p>
-            <span class="tag">艺术</span>
-            <span class="tag">创意</span>
-            <span class="project-status">已上线</span>
-        </a>
+        <p class="subtitle">科技向善 · AI 赋能未来</p>
         
-        <!-- 实用工具 -->
-        <a href="./wange-tools/" class="project-card">
-            <div class="project-icon">🎬</div>
-            <h3>AI 产品落地页</h3>
-            <p>智能短视频自动化平台宣传页，功能展示、数据统计、转化引导</p>
-            <span class="tag">产品</span>
-            <span class="tag">营销</span>
-            <span class="project-status coming">待发布</span>
-        </a>
+        <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
         
-        <a href="./wange-feedback/" class="project-card">
-            <div class="project-icon">📝</div>
-            <h3>用户反馈收集</h3>
-            <p>简洁优雅的反馈表单，满意度评分、类型分类、自动提交确认</p>
-            <span class="tag">工具</span>
-            <span class="tag">运营</span>
-            <span class="project-status coming">待发布</span>
-        </a>
-        
-        <a href="./wange-dashboard/" class="project-card">
-            <div class="project-icon">📊</div>
-            <h3>数据仪表板</h3>
-            <p>运营数据可视化，视频统计、趋势图表、平台分布、热门排行</p>
-            <span class="tag">数据</span>
-            <span class="tag">分析</span>
-            <span class="project-status coming">待发布</span>
-        </a>
-    </div>
-    
-    <div class="footer">
-        © 2026 WanGe AIGC · 让 AI 更有温度
+        <div class="brand-mark">
+            Powered by <span>WanGe AIGC</span>
+        </div>
     </div>
 </body>
 </html>
