@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 资源下载站 - WanGe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f7fa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 82, 217, 0.08);
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0052D9;
+            letter-spacing: 0.05em;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            padding: 10px 20px;
+            background: #0052D9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cart-btn:hover {
+            background: #0045b8;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 22px;
+            height: 22px;
+            background: #ff4d4f;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hero 区域 */
+        .hero {
+            padding: 140px 60px 80px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0fe 100%);
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 产品网格 */
+        .products {
+            padding: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 82, 217, 0.06);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 82, 217, 0.12);
+        }
+        
+        .product-cover {
+            height: 200px;
+            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .product-cover .icon {
+            font-size: 4rem;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 6px 12px;
+            background: #0052D9;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .product-badge.hot {
+            background: #ff4d4f;
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .product-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        .product-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .current-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ff4d4f;
+        }
+        
+        .original-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .buy-btn {
+            width: 100%;
+            padding: 14px;
+            background: #0052D9;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .buy-btn:hover {
+            background: #0045b8;
+        }
+        
+        .buy-btn.added {
+            background: #52c41a;
+        }
+        
+        /* 购物车弹窗 */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            justify-content: flex-end;
+        }
+        
+        .cart-modal.show {
+            display: flex;
+        }
+        
+        .cart-panel {
+            width: 400px;
+            background: #fff;
+            height: 100%;
+            padding: 30px;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-header h2 {
+            font-size: 1.3rem;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-icon {
+            width: 60px;
+            height: 60px;
+            background: #e8f0fe;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-info .price {
+            color: #ff4d4f;
+            font-weight: 600;
+        }
+        
+        .cart-total {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .total-row.final {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ff4d4f;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: #ff4d4f;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background: #ff7875;
+        }
+        
+        /* 支付弹窗 */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .payment-modal.show {
+            display: flex;
+        }
+        
+        .payment-panel {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+        }
+        
+        .payment-panel h2 {
+            margin-bottom: 30px;
+        }
+        
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .payment-tips {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        /* 页脚 */
+        footer {
+            padding: 60px;
+            text-align: center;
+            background: #fff;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 0.85rem;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .products {
+                padding: 30px 20px;
+            }
+            
+            .hero {
+                padding: 120px 30px 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">📚 WanGe 资源站</div>
+        <div class="nav-right">
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 购物车
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <h1>优质 AI 资源下载</h1>
+        <p>精选 AI 教程、工具包、研究报告，助您快速掌握人工智能技术</p>
+    </section>
+    
+    <section class="products">
+        <h2 class="section-title">🔥 热门资源</h2>
+        <div class="products-grid">
+            <!-- 产品 1 -->
+            <div class="product-card">
+                <div class="product-cover">
+                    <span class="product-badge hot">热卖</span>
+                    <span class="icon">📖</span>
+                </div>
+                <div class="product-info">
+                    <h3>2026 AI 行业发展报告</h3>
+                    <p>全面解析全球 AI 产业趋势，包含 100+ 页深度分析</p>
+                    <div class="product-meta">
+                        <span>📄 PDF</span>
+                        <span>📦 128页</span>
+                        <span>⬇️ 2.3k</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">¥29.9</span>
+                        <span class="original-price">¥99</span>
+                    </div>
+                    <button class="buy-btn" onclick="addToCart('AI发展报告', 29.9, '📖')">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 产品 2 -->
+            <div class="product-card">
+                <div class="product-cover">
+                    <span class="product-badge">精选</span>
+                    <span class="icon">🎨</span>
+                </div>
+                <div class="product-info">
+                    <h3>Midjourney 提示词大全</h3>
+                    <p>1000+ 精选提示词模板，涵盖各类风格与场景</p>
+                    <div class="product-meta">
+                        <span>📄 PDF</span>
+                        <span>📦 256页</span>
+                        <span>⬇️ 5.6k</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">¥19.9</span>
+                        <span class="original-price">¥59</span>
+                    </div>
+                    <button class="buy-btn" onclick="addToCart('MJ提示词大全', 19.9, '🎨')">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 产品 3 -->
+            <div class="product-card">
+                <div class="product-cover">
+                    <span class="product-badge">新品</span>
+                    <span class="icon">🤖</span>
+                </div>
+                <div class="product-info">
+                    <h3>ChatGPT 高级应用指南</h3>
+                    <p>从入门到精通，掌握提示工程与自动化工作流</p>
+                    <div class="product-meta">
+                        <span>📄 PDF</span>
+                        <span>📦 180页</span>
+                        <span>⬇️ 1.8k</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">¥39.9</span>
+                        <span class="original-price">¥129</span>
+                    </div>
+                    <button class="buy-btn" onclick="addToCart('ChatGPT指南', 39.9, '🤖')">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 产品 4 -->
+            <div class="product-card">
+                <div class="product-cover">
+                    <span class="product-badge">套装</span>
+                    <span class="icon">📦</span>
+                </div>
+                <div class="product-info">
+                    <h3>AI 视频制作工具包</h3>
+                    <p>包含脚本模板、配音指南、剪辑技巧与案例分析</p>
+                    <div class="product-meta">
+                        <span>📄 PDF</span>
+                        <span>📦 320页</span>
+                        <span>⬇️ 3.2k</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">¥49.9</span>
+                        <span class="original-price">¥199</span>
+                    </div>
+                    <button class="buy-btn" onclick="addToCart('AI视频工具包', 49.9, '📦')">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 产品 5 -->
+            <div class="product-card">
+                <div class="product-cover">
+                    <span class="product-badge hot">热卖</span>
+                    <span class="icon">💼</span>
+                </div>
+                <div class="product-info">
+                    <h3>AI 产品经理实战手册</h3>
+                    <p>AI 产品设计方法论、案例分析与落地指南</p>
+                    <div class="product-meta">
+                        <span>📄 PDF</span>
+                        <span>📦 200页</span>
+                        <span>⬇️ 4.1k</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">¥59.9</span>
+                        <span class="original-price">¥159</span>
+                    </div>
+                    <button class="buy-btn" onclick="addToCart('AI产品手册', 59.9, '💼')">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 产品 6 -->
+            <div class="product-card">
+                <div class="product-cover">
+                    <span class="product-badge">免费</span>
+                    <span class="icon">🎁</span>
+                </div>
+                <div class="product-info">
+                    <h3>AI 工具清单 2026 版</h3>
+                    <p>500+ AI 工具分类整理，附使用场景与优缺点分析</p>
+                    <div class="product-meta">
+                        <span>📄 PDF</span>
+                        <span>📦 88页</span>
+                        <span>⬇️ 12.5k</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">免费</span>
+                        <span class="original-price">¥29</span>
+                    </div>
+                    <button class="buy-btn" onclick="downloadFree()">立即下载</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 购物车弹窗 -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h2>🛒 购物车</h2>
+                <button class="close-btn" onclick="toggleCart()">✕</button>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>商品总价</span>
+                    <span id="subtotal">¥0</span>
+                </div>
+                <div class="total-row">
+                    <span>优惠</span>
+                    <span style="color: #52c41a;">-¥0</span>
+                </div>
+                <div class="total-row final">
+                    <span>合计</span>
+                    <span id="total">¥0</span>
+                </div>
+                <button class="checkout-btn" onclick="showPayment()">去结算</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 支付弹窗 -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-panel">
+            <h2>💳 扫码支付</h2>
+            <div class="qr-placeholder">📱</div>
+            <p class="payment-tips">请使用微信或支付宝扫码支付<br>支付完成后自动跳转下载</p>
+            <p style="color: #999; font-size: 0.85rem;">（演示模式：点击任意处关闭）</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2026 WanGe AIGC. All rights reserved.</p>
+        <p>本站所有资源仅供学习交流使用</p>
+    </footer>
+    
+    <script>
+        let cart = [];
+        
+        function addToCart(name, price, icon) {
+            cart.push({ name, price, icon });
+            updateCart();
+            
+            // 按钮动画
+            event.target.textContent = '✓ 已添加';
+            event.target.classList.add('added');
+            setTimeout(() => {
+                event.target.textContent = '加入购物车';
+                event.target.classList.remove('added');
+            }, 1500);
+        }
+        
+        function updateCart() {
+            document.getElementById('cartCount').textContent = cart.length;
+            
+            const cartItems = document.getElementById('cartItems');
+            let html = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-icon">${item.icon}</div>
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <span class="price">¥${item.price}</span>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:none;border:none;color:#999;cursor:pointer;">✕</button>
+                    </div>
+                `;
+                total += item.price;
+            });
+            
+            cartItems.innerHTML = html || '<p style="text-align:center;color:#999;padding:40px;">购物车是空的</p>';
+            document.getElementById('subtotal').textContent = `¥${total.toFixed(1)}`;
+            document.getElementById('total').textContent = `¥${total.toFixed(1)}`;
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+        
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('show');
+        }
+        
+        function showPayment() {
+            if (cart.length === 0) {
+                alert('购物车是空的');
+                return;
+            }
+            document.getElementById('paymentModal').classList.add('show');
+        }
+        
+        function downloadFree() {
+            alert('免费资源下载链接已发送至您的邮箱！');
+        }
+        
+        // 点击支付弹窗关闭
+        document.getElementById('paymentModal').addEventListener('click', function() {
+            this.classList.remove('show');
+            alert('支付成功！下载链接已发送至您的邮箱。');
+            cart = [];
+            updateCart();
+            toggleCart();
+        });
+    </script>
+</body>
+</html>
